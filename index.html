@@ -37,6 +37,8 @@
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth;scroll-padding-top:80px}
+  a,button,summary,label,select,input,textarea,[data-contact]{touch-action:manipulation;-webkit-tap-highlight-color:rgba(232,183,49,.18)}
+  .btn:active,button:active,.fab-item:active{transform:scale(.97)}
   body{margin:0;background:var(--paper);color:var(--text);font:18px/1.7 "PT Serif",Georgia,serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
   img{max-width:100%;display:block}
   a{color:inherit}
@@ -101,7 +103,8 @@
   @keyframes bookFloat{0%,100%{transform:perspective(1200px) translateY(0) rotateY(0deg)}25%{transform:perspective(1200px) translateY(-8px) rotateY(-4deg)}50%{transform:perspective(1200px) translateY(-14px) rotateY(0deg)}75%{transform:perspective(1200px) translateY(-8px) rotateY(4deg)}}
   .hero-img picture{display:contents}
   @media (prefers-reduced-motion:reduce){.hero-book{animation:none}}
-  @media (max-width:760px){ .hero-book{max-width:250px} }
+  .hero-img picture{display:contents}
+  @media (max-width:760px){ .hero-book{max-width:250px;filter:drop-shadow(0 22px 26px rgba(0,0,0,.55));will-change:transform} }
   .chip{position:absolute;background:#fff;color:var(--text);border-radius:14px;padding:14px 18px;box-shadow:0 20px 40px rgba(0,0,0,.35);font-size:.92rem;line-height:1.4;max-width:240px}
   .chip b{display:block;font:800 .72rem Montserrat,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-dark);margin-bottom:4px}
   .chip.c1{left:-46px;bottom:60px}
@@ -224,8 +227,9 @@
   .live-count{margin-top:22px;background:linear-gradient(135deg,rgba(232,183,49,.16),rgba(232,183,49,.04));border:1px solid rgba(232,183,49,.45);border-radius:16px;padding:18px 20px}
   .lc-top{display:flex;align-items:center;gap:8px;font:600 .74rem Montserrat,sans-serif;letter-spacing:.06em;color:rgba(255,255,255,.75)}
   .lc-top b{color:#ff5a4f;letter-spacing:.14em}
-  .live-dot{width:9px;height:9px;border-radius:50%;background:#ff5a4f;box-shadow:0 0 0 0 rgba(255,90,79,.6);animation:livePulse 1.6s infinite}
-  @keyframes livePulse{70%{box-shadow:0 0 0 9px rgba(255,90,79,0)}100%{box-shadow:0 0 0 0 rgba(255,90,79,0)}}
+  .live-dot{position:relative;width:9px;height:9px;border-radius:50%;background:#ff5a4f}
+  .live-dot::after{content:"";position:absolute;inset:0;border-radius:50%;background:rgba(255,90,79,.6);animation:livePulse 1.6s infinite}
+  @keyframes livePulse{70%,100%{transform:scale(3);opacity:0}}
   .lc-num{display:flex;align-items:baseline;gap:10px;margin:6px 0 10px;font:800 2.6rem/1 Montserrat,sans-serif;color:var(--gold);font-variant-numeric:tabular-nums}
   .lc-plus{font-size:1.3rem;color:#5ee08a;opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s}
   .lc-plus.show{opacity:1;transform:none}
@@ -238,8 +242,8 @@
   .lc-sub b{color:#fff}
 
   /* Известие „току-що поръчана“ */
-  .order-toast{position:fixed;left:16px;bottom:16px;z-index:65;max-width:330px;display:flex;gap:12px;align-items:center;background:#fff;color:var(--ink);border-radius:16px;padding:14px 16px;box-shadow:0 18px 40px rgba(0,0,0,.35);transform:translateY(140%);opacity:0;transition:transform .45s,opacity .45s}
-  .order-toast.show{transform:none;opacity:1}
+  .order-toast{position:fixed;left:16px;bottom:16px;z-index:65;max-width:330px;display:flex;gap:12px;align-items:center;background:#fff;color:var(--ink);border-radius:16px;padding:14px 16px;box-shadow:0 18px 40px rgba(0,0,0,.35);transform:translateY(140%);opacity:0;transition:transform .45s,opacity .45s;pointer-events:none}
+  .order-toast.show{transform:none;opacity:1;pointer-events:auto}
   .order-toast .ic{flex:none;width:42px;height:42px;border-radius:50%;background:var(--gold);display:grid;place-items:center;font-size:1.3rem}
   .order-toast b{display:block;font:700 .9rem Montserrat,sans-serif}
   .order-toast span{font:500 .8rem Montserrat,sans-serif;color:var(--muted)}
@@ -618,8 +622,10 @@
   footer .foot-about b{font-weight:400;color:rgba(255,255,255,.75)}
 
   /* Балончета за запитвания */
-  .fab{position:fixed;right:18px;bottom:18px;z-index:45;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+  .fab{position:fixed;right:18px;bottom:18px;z-index:45;display:flex;flex-direction:column;align-items:flex-end;gap:10px;pointer-events:none}
+  .fab-toggle{pointer-events:auto}
   .fab-list{display:flex;flex-direction:column;align-items:flex-end;gap:10px;pointer-events:none}
+  .fab:not(.open) .fab-item{pointer-events:none}
   .fab-item{display:flex;align-items:center;gap:10px;text-decoration:none;opacity:0;visibility:hidden;transform:translateY(12px) scale(.9);transition:opacity .2s,transform .2s,visibility .2s}
   .fab.open .fab-list{pointer-events:auto}
   .fab.open .fab-item{opacity:1;visibility:visible;transform:none}
@@ -897,6 +903,11 @@
     .fab{right:12px;bottom:12px}
     .fab-toggle{width:50px;height:50px}
     .fab-toggle svg{width:22px;height:22px}
+    /* По-големи цели за пръста (поне ~44px) */
+    .nav .btn{min-height:40px;display:inline-flex;align-items:center}
+    .m-more-btn{min-height:44px;padding:10px 0}
+    .review .more{min-height:44px;padding-top:12px}
+    .logo{padding:10px 0}
   }
 </style>
 <!-- SEO-JSONLD -->
@@ -946,7 +957,7 @@
       <a href="#otzivi" class="proof"><span class="stars">★★★★★</span>Реални отзиви от читатели →</a>
     </div>
     <div class="hero-img">
-      <picture><source srcset="img/kniga-izpravena.webp" type="image/webp"><img class="hero-book" src="img/kniga-izpravena.png" alt="Книгата-дневник за добри дела „Моите 365 добри дела“ от Арман-Онник Шакарян" width="700" height="1018" fetchpriority="high"></picture>
+      <picture><source srcset="img/kniga-izpravena.webp" type="image/webp"><picture><source srcset="img/kniga-izpravena.webp" type="image/webp"><img class="hero-book" src="img/kniga-izpravena.png" alt="Книгата-дневник за добри дела „Моите 365 добри дела“ от Арман-Онник Шакарян" width="700" height="1018" fetchpriority="high"></picture></picture>
       <div class="deed-chip d2"><span class="ico">🐶</span><div><b>Ден 121</b>„Сипах вода на улично куче.“</div></div>
       <div class="deed-chip d1"><span class="ico">❤️</span><div><b>Ден 244</b>„Изведох баба и дядо на ресторант. Просто ей така.“</div></div>
     </div>
