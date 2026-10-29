@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Пакет „Старт на доброто“ – Моите 365 добри дела</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2317181b'/%3E%3Ctext x='32' y='42' font-family='Arial,sans-serif' font-weight='900' font-size='25' fill='%23e8b731' text-anchor='middle'%3E365%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#17181b;--slate:#24262b;--gold:#e8b731;--gold-dark:#a87d12;--paper:#f8f5ef;--line:#e6e0d4;--muted:#6b6f76;color-scheme:light}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:#2a2c30;font:17px/1.65 "PT Serif",Georgia,serif;-webkit-text-size-adjust:100%}
+  h1,h2,h3{font-family:Montserrat,sans-serif;margin:0;line-height:1.15;text-wrap:balance}
+  a{color:inherit}
+  .wrap{max-width:980px;margin:0 auto;padding:0 20px}
+  .hero{background:radial-gradient(ellipse 60% 70% at 70% 30%,rgba(232,183,49,.2),transparent 70%),radial-gradient(ellipse at 20% 0%,#2f3237,var(--ink) 70%);color:#fff;padding:54px 0 64px;text-align:center}
+  .brand{font:800 .78rem Montserrat,sans-serif;letter-spacing:.22em;text-transform:uppercase;opacity:.9}
+  .brand b{color:var(--gold)}
+  .hero .ok{display:inline-flex;align-items:center;gap:8px;margin-top:26px;border:1px solid rgba(232,183,49,.45);border-radius:99px;padding:7px 16px;font:700 .72rem Montserrat,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+  .hero h1{margin-top:18px;font-size:clamp(2rem,6vw,3.2rem);font-weight:900}
+  .hero h1 span{color:var(--gold)}
+  .hero p{max-width:34em;margin:16px auto 0;color:rgba(255,255,255,.82);font-size:1.05rem}
+  .list{display:grid;gap:18px;margin:-36px auto 0;position:relative}
+  .item{background:#fff;border-radius:20px;box-shadow:0 14px 40px rgba(0,0,0,.08);display:grid;grid-template-columns:150px 1fr;gap:22px;padding:18px;align-items:center}
+  .item img{width:150px;border-radius:10px;box-shadow:0 8px 20px rgba(0,0,0,.18);display:block}
+  .item .tag{font:800 .66rem Montserrat,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-dark)}
+  .item h2{font-size:1.25rem;margin:6px 0 6px;color:var(--ink)}
+  .item p{margin:0 0 14px;font-size:.95rem;color:#4a4d52}
+  .btn{display:inline-flex;align-items:center;gap:8px;font:800 .78rem Montserrat,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:12px 20px;border-radius:99px;background:var(--gold);color:var(--ink);text-decoration:none;box-shadow:0 8px 20px rgba(232,183,49,.3)}
+  .btn svg{width:16px;height:16px}
+  .btn-2{display:inline-flex;align-items:center;gap:6px;font:700 .78rem Montserrat,sans-serif;padding:11px 16px;border-radius:99px;border:1.5px solid var(--line);color:var(--ink);text-decoration:none;margin-left:6px}
+  .boards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+  .boards a{display:block;text-decoration:none;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--paper)}
+  .boards a:hover{border-color:var(--gold)}
+  .boards b{display:block;font:800 .8rem Montserrat,sans-serif;color:var(--ink)}
+  .boards span{display:block;font:500 .72rem/1.35 Montserrat,sans-serif;color:var(--muted);margin-top:2px}
+  .item p.note{margin:10px 0 0;font-size:.82rem;color:var(--muted)}
+  @media (max-width:640px){ .boards{grid-template-columns:1fr} }
+  .walls{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:6px}
+  .walls a{display:block;border-radius:10px;overflow:hidden;box-shadow:0 6px 14px rgba(0,0,0,.15)}
+  .walls img{width:100%;display:block;aspect-ratio:1170/2532;object-fit:cover}
+  .item.full{grid-template-columns:1fr}
+  .soon{background:var(--ink);color:#fff}
+  .soon h2{color:#fff}
+  .soon p{color:rgba(255,255,255,.75)}
+  .soon .tag{color:var(--gold)}
+  .play{width:150px;aspect-ratio:4/5;border-radius:10px;background:radial-gradient(circle,rgba(232,183,49,.25),transparent 70%),#24262b;display:grid;place-items:center;border:1.5px dashed rgba(232,183,49,.5)}
+  .play i{width:56px;height:56px;border-radius:50%;background:var(--gold);display:grid;place-items:center}
+  .play svg{width:22px;height:22px;margin-left:3px}
+  .tips{margin:34px auto 0;background:#fff;border-radius:20px;padding:24px 26px;border-left:4px solid var(--gold)}
+  .tips h3{font-size:1.05rem;margin-bottom:10px}
+  .tips ul{margin:0;padding-left:20px;font-size:.95rem}
+  .tips li{margin:5px 0}
+  footer{text-align:center;padding:40px 20px 60px;font:600 .8rem Montserrat,sans-serif;color:var(--muted)}
+  footer a{color:var(--gold-dark);text-decoration:none;font-weight:800}
+  @media (max-width:640px){
+    body{font-size:16px}
+    .hero{padding:40px 0 56px}
+    .item{grid-template-columns:96px 1fr;gap:14px;padding:14px;border-radius:16px}
+    .item img,.play{width:96px}
+    .item h2{font-size:1.05rem}
+    .item p{font-size:.88rem;margin-bottom:10px}
+    .btn{padding:10px 14px;font-size:.7rem}
+    .btn-2{margin:8px 0 0;padding:9px 13px;font-size:.7rem}
+    .walls{grid-template-columns:repeat(4,1fr);gap:8px}
+    .play i{width:40px;height:40px}
+  }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="brand">Моите <b>365</b> добри дела</div>
+    <div class="ok">✓ Твоят пакет е готов</div>
+    <h1>Пакет „Старт<br>на <span>доброто</span>“</h1>
+    <p>Благодарим ти! Тук е всичко, което ти трябва, за да започнеш още днес – докато книгата-дневник пътува към теб. Запази си тази страница: можеш да се връщаш тук винаги.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="list">
+    <article class="item">
+      <img src="th-30.jpg" alt="Корица на „30 дни добри дела“">
+      <div><span class="tag">PDF · 8 страници · A4</span><h2>30 дни добри дела</h2>
+        <p>Предизвикателството: по една задача на ден за 4 седмици, тракер с 30 кръгчета и мини сертификат накрая.</p>
+        <a class="btn" href="../predizvikatelstvo-x4f8n1/30-dni-dobri-dela.pdf" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Изтегли</a></div>
+    </article>
+    <article class="item">
+      <img src="th-16.jpg" alt="Корица на „16 теми за размисъл“">
+      <div><span class="tag">PDF · 19 страници · A4</span><h2>16 теми за размисъл</h2>
+        <p>Работна тетрадка с шестнайсетте въпроса от книгата – по три въпроса за размисъл и едно малко действие към всяка тема.</p>
+        <a class="btn" href="16-temi-za-razmisal.pdf" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Изтегли</a></div>
+    </article>
+    <article class="item">
+      <img src="th-poster.jpg" alt="Постер „365 добри дела“">
+      <div><span class="tag">PDF · A3 постер</span><h2>Постер „365 точки“</h2>
+        <p>Закачи го на стената и оцветявай по едно кръгче за всяко добро дело. Спирките 66, 100, 200 и 365 са отбелязани като в книгата.</p>
+        <a class="btn" href="poster-365-tochki-A3.pdf" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Изтегли</a></div>
+    </article>
+    <article class="item">
+      <img src="th-igra.jpg" alt="Дъската на играта „Не се сърди – прави добро!“">
+      <div><span class="tag">Семейна игра · дъска A3 + 63 карти</span><h2>„Не се сърди – прави добро!“</h2>
+        <p>Любимата игра със зарче, но печели този, който прави добро по пътя. Изтегли <b>правилата и картите</b> и <b>една дъска</b> – според принтера си.</p>
+        <a class="btn" href="igra-ne-se-sardi-pravi-dobro.pdf" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Правила, карти и пионки</a>
+        <div class="boards">
+          <a href="igra-dyska-A4.pdf" download><b>Дъска · 1 лист A4</b><span>Най-лесно – всеки домашен принтер</span></a>
+          <a href="igra-dyska-2xA4.pdf" download><b>Дъска · 2 листа A4</b><span>Голяма дъска у дома – залепваш двете половини</span></a>
+          <a href="igra-dyska-A3.pdf" download><b>Дъска · A3</b><span>За копирен център (около 1–2 €)</span></a>
+        </div>
+        <p class="note">При печат избери <b>„Действителен размер“ (100%)</b>, не „по размер на листа“.</p></div>
+    </article>
+    <article class="item full">
+      <div><span class="tag">12 снимки · за iPhone и Android</span><h2>Тапети за телефона – по един за всеки месец</h2>
+        <p>Цитати от книгата, които ще ти напомнят за доброто всеки път, щом отключиш телефона. Докосни тапет, задръж пръста върху снимката и избери „Запази“.</p>
+        <div class="walls" id="walls"></div>
+        <p style="margin:14px 0 0"><a class="btn" href="tapeti-365-dobri-dela.zip" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Всички 12 наведнъж (ZIP)</a></p></div>
+    </article>
+    <article class="item soon">
+      <div class="play"><i><svg viewBox="0 0 24 24" fill="#17181b"><path d="M8 5v14l11-7z"/></svg></i></div>
+      <div><span class="tag">Видео · очаквай скоро</span><h2>Видео послания от Арман</h2>
+        <p>„Как да започнеш“, „Стигна ли 100 дни?“ и „Когато ти е трудно“ – три кратки лични послания от автора. Ще се появят тук – просто се върни на тази страница.</p></div>
+    </article>
+  </div>
+
+  <div class="tips">
+    <h3>Как да принтираш</h3>
+    <ul>
+      <li><b>30 дни</b> и <b>16 теми</b> – на обикновен A4 у дома или в офиса.</li>
+      <li><b>Постерът</b> е A3 – отпечатай го в копирен център (струва около 1–2 €) или намали до A4 при печат.</li>
+      <li>Попълвай с химикал – а всяко добро дело запиши и в своята книга-дневник.</li>
+    </ul>
+  </div>
+</main>
+
+<footer>Имаш въпрос? Пиши ни в Instagram <a href="https://www.instagram.com/moite365dobridela/" target="_blank" rel="noopener">@moite365dobridela</a></footer>
+
+<script>
+  document.getElementById('walls').innerHTML = Array.from({ length: 12 }, (_, i) => {
+    const n = String(i + 1).padStart(2, '0');
+    return `<a href="tapeti/tapet-${n}.jpg" target="_blank" rel="noopener"><img src="tapeti/tapet-${n}.jpg" alt="Тапет ${i + 1}" loading="lazy"></a>`;
+  }).join('');
+</script>
+</body>
+</html>

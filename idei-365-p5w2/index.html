@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#17181b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="365 идеи">
+<title>365 идеи за добри дела</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2317181b'/%3E%3Ctext x='32' y='42' font-family='Arial,sans-serif' font-weight='900' font-size='25' fill='%23e8b731' text-anchor='middle'%3E365%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="../img/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#17181b;--slate:#24262b;--slate2:#2d3036;--gold:#e8b731;--gold-dark:#a87d12;--ok:#5ec98a;color-scheme:dark}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;min-height:100vh;background:radial-gradient(ellipse 90% 50% at 50% 0%,rgba(232,183,49,.14),transparent 70%),var(--ink);color:#fff;font:16px/1.55 "PT Serif",Georgia,serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+  h1,h2,h3,button{font-family:Montserrat,sans-serif}
+  .app{max-width:520px;margin:0 auto;padding:18px 18px 40px}
+  .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .brand{font:800 .7rem Montserrat,sans-serif;letter-spacing:.2em;text-transform:uppercase;opacity:.85}
+  .brand b{color:var(--gold)}
+  .tabs{display:flex;background:var(--slate);border-radius:99px;padding:3px}
+  .tabs button{border:0;background:none;color:rgba(255,255,255,.6);font:700 .72rem Montserrat,sans-serif;padding:7px 12px;border-radius:99px;cursor:pointer}
+  .tabs button.on{background:var(--gold);color:var(--ink)}
+  [hidden]{display:none!important}
+
+  /* Прогрес */
+  .prog{margin:18px 0 14px;display:flex;align-items:center;gap:12px}
+  .prog .bar{flex:1;height:8px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden}
+  .prog .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#e8b731,#ffd970);border-radius:99px;transition:width .6s}
+  .prog b{font:800 .8rem Montserrat,sans-serif;color:var(--gold);white-space:nowrap}
+
+  /* Картата на деня */
+  .card{background:linear-gradient(160deg,var(--slate2),var(--slate));border:1px solid rgba(232,183,49,.3);border-radius:26px;padding:24px 22px 22px;box-shadow:0 24px 50px rgba(0,0,0,.45);position:relative;overflow:hidden}
+  .card::after{content:"";position:absolute;right:-50px;top:-50px;width:170px;height:170px;border-radius:50%;background:radial-gradient(rgba(232,183,49,.25),transparent 70%)}
+  .dayrow{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}
+  .day{font:900 .78rem Montserrat,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+  .day span{font-size:2.6rem;letter-spacing:0;display:block;line-height:1;margin-top:4px}
+  .arrows{display:flex;gap:6px}
+  .arrows button{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.04);color:#fff;font-size:1rem;cursor:pointer}
+  .chip{display:inline-flex;align-items:center;gap:6px;margin-top:16px;background:rgba(255,255,255,.07);border-radius:99px;padding:6px 12px;font:700 .72rem Montserrat,sans-serif;position:relative;z-index:1}
+  .idea{margin:14px 0 6px;font:400 1.42rem/1.42 "PT Serif",serif;position:relative;z-index:1;min-height:4.3em;text-wrap:pretty;transition:opacity .2s}
+  .src{font:600 .72rem Montserrat,sans-serif;color:rgba(255,255,255,.5);position:relative;z-index:1}
+  .src.b{color:var(--gold)}
+  .acts{display:grid;grid-template-columns:1fr auto auto;gap:8px;margin-top:20px;position:relative;z-index:1}
+  .btn{border:0;border-radius:99px;padding:15px 18px;font:900 .82rem Montserrat,sans-serif;letter-spacing:.04em;text-transform:uppercase;background:var(--gold);color:var(--ink);cursor:pointer;transition:transform .15s}
+  .btn:active{transform:scale(.97)}
+  .btn.done{background:var(--ok)}
+  .icb{width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.05);color:#fff;font-size:1.15rem;cursor:pointer}
+  .tip{margin-top:14px;text-align:center;font:600 .74rem Montserrat,sans-serif;color:rgba(255,255,255,.45)}
+  .celebrate{position:fixed;inset:0;pointer-events:none;z-index:40}
+
+  /* Старт */
+  .start{text-align:center;padding:30px 4px}
+  .start h1{font:900 1.9rem/1.15 Montserrat,sans-serif;margin:10px 0 10px}
+  .start h1 span{color:var(--gold)}
+  .start p{color:rgba(255,255,255,.75);margin:0 0 20px}
+  .start label{display:block;font:700 .78rem Montserrat,sans-serif;color:rgba(255,255,255,.7);margin-bottom:8px}
+  .start input{width:120px;text-align:center;font:900 1.6rem Montserrat,sans-serif;background:var(--slate);color:var(--gold);border:2px solid rgba(232,183,49,.5);border-radius:14px;padding:10px;margin-bottom:18px}
+  .start .btn{width:100%}
+
+  /* Всички идеи */
+  .filters{display:flex;gap:6px;overflow-x:auto;padding:16px 0 10px;scrollbar-width:none}
+  .filters::-webkit-scrollbar{display:none}
+  .filters button{flex:none;border:1px solid rgba(255,255,255,.15);background:var(--slate);color:#fff;border-radius:99px;padding:7px 12px;font:700 .72rem Montserrat,sans-serif;cursor:pointer}
+  .filters button.on{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+  .search{width:100%;background:var(--slate);border:1px solid rgba(255,255,255,.12);border-radius:12px;color:#fff;padding:11px 14px;font:400 .95rem "PT Serif",serif;margin-top:14px}
+  .list{display:grid;gap:8px;margin-top:6px}
+  .row{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start;background:var(--slate);border-radius:14px;padding:12px 14px;cursor:pointer}
+  .row .ck{width:24px;height:24px;border-radius:7px;border:2px solid rgba(232,183,49,.6);display:grid;place-items:center;margin-top:1px}
+  .row.done .ck{background:var(--gold);border-color:var(--gold)}
+  .row.done .ck::after{content:"";width:6px;height:11px;border:solid var(--ink);border-width:0 2.5px 2.5px 0;transform:translateY(-1px) rotate(45deg)}
+  .row.done .t{color:rgba(255,255,255,.45);text-decoration:line-through}
+  .row .t{font-size:.95rem}
+  .row small{display:block;font:700 .64rem Montserrat,sans-serif;color:rgba(255,255,255,.45);margin-top:3px;letter-spacing:.04em}
+  .row small b{color:var(--gold)}
+
+  /* Още */
+  .more{margin-top:26px;display:grid;gap:10px}
+  .more a,.more div.box{display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:center;text-decoration:none;color:#fff;background:var(--slate);border-radius:16px;padding:14px}
+  .more .i{width:40px;height:40px;border-radius:12px;background:rgba(232,183,49,.16);display:grid;place-items:center;font-size:1.15rem}
+  .more b{display:block;font:800 .88rem Montserrat,sans-serif}
+  .more span{font-size:.85rem;color:rgba(255,255,255,.6)}
+  .toast:not(.show){opacity:0;visibility:hidden}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120%);background:#fff;color:var(--ink);font:700 .85rem Montserrat,sans-serif;padding:12px 18px;border-radius:99px;box-shadow:0 12px 30px rgba(0,0,0,.4);transition:transform .3s;z-index:50}
+  .toast.show{transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top"><div class="brand">Моите <b>365</b> добри дела</div>
+    <div class="tabs" id="tabs"><button data-v="today" class="on">Днес</button><button data-v="all">Всички 365</button></div></div>
+
+  <!-- Старт -->
+  <section class="start" id="start" hidden>
+    <div style="font-size:2.4rem">💛</div>
+    <h1>365 идеи за<br><span>добри дела</span></h1>
+    <p>Всеки ден – една идея. Направи я, отметни я и я запиши в своята книга-дневник.</p>
+    <label for="startDay">На кой ден от книгата си?</label>
+    <input id="startDay" type="number" inputmode="numeric" min="1" max="365" value="1"><br>
+    <button class="btn" id="go">Започни</button>
+  </section>
+
+  <!-- Днес -->
+  <section id="today" hidden>
+    <div class="prog"><div class="bar"><i id="pbar"></i></div><b id="ptxt">0 / 365</b></div>
+    <article class="card">
+      <div class="dayrow"><div class="day">Ден<span id="dnum">1</span></div>
+        <div class="arrows"><button id="prev" aria-label="Предишен ден">‹</button><button id="next" aria-label="Следващ ден">›</button></div></div>
+      <div class="chip" id="chip"></div>
+      <p class="idea" id="idea"></p>
+      <div class="src" id="src"></div>
+      <div class="acts"><button class="btn" id="doneBtn">✓ Направих го</button><button class="icb" id="shuffle" title="Друга идея" aria-label="Друга идея">🔀</button><button class="icb" id="share" title="Сподели" aria-label="Сподели">↗</button></div>
+    </article>
+    <p class="tip">Не ти пасва днес? Натисни 🔀 за друга идея.</p>
+    <div class="more">
+      <a href="365-idei-za-dobri-dela.pdf" download><span class="i">📄</span><div><b>Всички 365 идеи в PDF</b><span>За печат – с квадратчета за отметки.</span></div></a>
+      <a href="../paket-k7m29q/poster-365-tochki-A3.pdf" download><span class="i">🎯</span><div><b>Бонус: постер „365 точки“</b><span>Оцветявай по кръгче за всяко добро дело.</span></div></a>
+      <div class="box"><span class="i">📲</span><div><b>Сложи го на началния екран</b><span>iPhone: „Сподели“ → „Добави към началния екран“. Android: менюто ⋮ → „Добавяне към началния екран“.</span></div></div>
+    </div>
+  </section>
+
+  <!-- Всички -->
+  <section id="all" hidden>
+    <input class="search" id="q" type="search" placeholder="Търси идея… (напр. баба, куче, колега)">
+    <div class="filters" id="filters"></div>
+    <div class="list" id="list"></div>
+  </section>
+</div>
+<div class="toast" id="toast"></div>
+<canvas class="celebrate" id="fx"></canvas>
+
+<script src="ideas.js"></script>
+<script>
+  const I = window.IDEAS, C = window.IDEAS_CATS, $ = id => document.getElementById(id);
+  const KEY = 'idei365';
+  const load = () => { try { return JSON.parse(localStorage.getItem(KEY)) || null; } catch { return null; } };
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch {} };
+  let st = load(); // { start: 'YYYY-MM-DD', startDay: n, done: [дни], swap: {ден: индекс} }
+  let view = 'today', cur = 1, cat = 'all';
+  const toast = t => { const e = $('toast'); e.textContent = t; e.classList.add('show'); clearTimeout(e._t); e._t = setTimeout(() => e.classList.remove('show'), 2200); };
+
+  // Кой ден е днес според датата на старта
+  const todayNo = () => { if (!st) return 1; const ms = new Date().setHours(0, 0, 0, 0) - new Date(st.start).setHours(0, 0, 0, 0); return Math.min(365, Math.max(1, st.startDay + Math.round(ms / 864e5))); };
+  const ideaFor = d => I[(st && st.swap && st.swap[d] != null) ? st.swap[d] : d - 1];
+
+  function show(v) {
+    view = v; document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.v === v));
+    $('start').hidden = !!st; $('today').hidden = !st || v !== 'today'; $('all').hidden = !st || v !== 'all'; $('tabs').hidden = !st;
+    if (st && v === 'today') renderDay(); if (st && v === 'all') renderList();
+  }
+  function renderProg() { const n = st.done.length; $('ptxt').textContent = n + ' / 365'; $('pbar').style.width = (n / 365 * 100) + '%'; }
+  function renderDay() {
+    const it = ideaFor(cur), done = st.done.includes(cur);
+    $('dnum').textContent = cur;
+    $('chip').textContent = it.ic + ' ' + it.name;
+    const el = $('idea'); el.style.opacity = 0; setTimeout(() => { el.textContent = it.text; el.style.opacity = 1; }, 120);
+    $('src').textContent = it.book ? '★ От книгата или от добро дело на читател' : (cur === todayNo() ? 'Идеята за днес' : '');
+    $('src').className = 'src' + (it.book ? ' b' : '');
+    $('doneBtn').textContent = done ? '✓ Направено!' : '✓ Направих го'; $('doneBtn').classList.toggle('done', done);
+    $('prev').disabled = cur <= 1; $('next').disabled = cur >= 365;
+    renderProg();
+  }
+  $('go').onclick = () => { const n = Math.min(365, Math.max(1, parseInt($('startDay').value, 10) || 1)); st = { start: new Date().toISOString().slice(0, 10), startDay: n, done: [], swap: {} }; save(); cur = n; show('today'); };
+  $('prev').onclick = () => { if (cur > 1) { cur--; renderDay(); } };
+  $('next').onclick = () => { if (cur < 365) { cur++; renderDay(); } };
+  $('doneBtn').onclick = () => {
+    const i = st.done.indexOf(cur);
+    if (i >= 0) st.done.splice(i, 1); else { st.done.push(cur); confetti(); const n = st.done.length; toast([66, 100, 200, 365].includes(n) ? (n === 100 ? 'Ехеее, 100 добри дела! 🎉' : n + ' добри дела! 🎉') : 'Браво! Запиши го и в книгата 💛'); }
+    save(); renderDay();
+  };
+  $('shuffle').onclick = () => {
+    const used = new Set(Object.values(st.swap)), pool = I.map((x, k) => k).filter(k => k !== cur - 1 && !used.has(k));
+    st.swap[cur] = pool[Math.floor(Math.random() * pool.length)]; save(); renderDay();
+  };
+  $('share').onclick = async () => {
+    const t = `Ден ${cur}: ${ideaFor(cur).text}\n\n#moite365dobridela`;
+    try { if (navigator.share) { await navigator.share({ text: t }); return; } } catch { return; }
+    try { await navigator.clipboard.writeText(t); toast('Копирано – сподели го 💛'); } catch { toast(t); }
+  };
+  document.querySelectorAll('#tabs button').forEach(b => b.onclick = () => show(b.dataset.v));
+
+  // Списък с всички
+  $('filters').innerHTML = `<button data-c="all" class="on">Всички</button>` + C.map(c => `<button data-c="${c.id}">${c.ic} ${c.name}</button>`).join('');
+  $('filters').onclick = e => { const b = e.target.closest('button'); if (!b) return; cat = b.dataset.c; document.querySelectorAll('#filters button').forEach(x => x.classList.toggle('on', x === b)); renderList(); };
+  $('q').oninput = renderList;
+  function renderList() {
+    const q = $('q').value.trim().toLowerCase();
+    $('list').innerHTML = I.map((it, k) => ({ it, d: k + 1 })).filter(x => (cat === 'all' || x.it.cat === cat) && (!q || x.it.text.toLowerCase().includes(q)))
+      .map(x => `<div class="row${st.done.includes(x.d) ? ' done' : ''}" data-d="${x.d}"><span class="ck"></span><div><span class="t">${x.it.text}</span><small><b>Ден ${x.d}</b> · ${x.it.ic} ${x.it.name}</small></div></div>`).join('') || '<p style="text-align:center;color:rgba(255,255,255,.5)">Няма намерени идеи.</p>';
+  }
+  $('list').onclick = e => { const r = e.target.closest('.row'); if (!r) return; cur = +r.dataset.d; show('today'); scrollTo(0, 0); };
+
+  // Малко конфети
+  function confetti() {
+    const c = $('fx'), x = c.getContext('2d'); c.width = innerWidth; c.height = innerHeight;
+    const P = Array.from({ length: 70 }, () => ({ x: innerWidth / 2, y: innerHeight * .45, vx: (Math.random() - .5) * 12, vy: -Math.random() * 12 - 4, s: Math.random() * 6 + 4, c: ['#e8b731', '#ffd970', '#fff', '#5ec98a'][Math.random() * 4 | 0], r: Math.random() * 6 }));
+    let f = 0; (function loop() { x.clearRect(0, 0, c.width, c.height); P.forEach(p => { p.vy += .35; p.x += p.vx; p.y += p.vy; p.r += .2; x.save(); x.translate(p.x, p.y); x.rotate(p.r); x.fillStyle = p.c; x.fillRect(-p.s / 2, -p.s / 2, p.s, p.s * .6); x.restore(); }); if (++f < 90) requestAnimationFrame(loop); else x.clearRect(0, 0, c.width, c.height); })();
+  }
+
+  if (st) cur = todayNo();
+  show('today');
+</script>
+</body>
+</html>

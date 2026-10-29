@@ -1,0 +1,28 @@
+# Моите 365 добри дела
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /paket-
+Disallow: /predizvikatelstvo-
+Disallow: /idei-
+Disallow: /dobroto-po-sveta-
+
+# AI търсачки – разрешени
+User-agent: GPTBot
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Claude-SearchBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: Bingbot
+Allow: /
+
+Sitemap: https://moite365dobridela.com/sitemap.xml

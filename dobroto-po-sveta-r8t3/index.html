@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Доброто по света с Арман</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2317181b'/%3E%3Ctext x='32' y='42' font-family='Arial,sans-serif' font-weight='900' font-size='25' fill='%23e8b731' text-anchor='middle'%3E365%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#17181b;--slate:#24262b;--slate2:#2d3036;--gold:#e8b731;--gold-dark:#a87d12;--paper:#f8f5ef;--line:#e6e0d4;--muted:#6b6f76;color-scheme:dark}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+  body{margin:0;background:var(--ink);color:#fff;font:17px/1.6 "PT Serif",Georgia,serif}
+  h1,h2,h3{font-family:Montserrat,sans-serif;margin:0;line-height:1.15;text-wrap:balance}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+
+  /* Начало */
+  .hero{padding:48px 0 22px;text-align:center;background:radial-gradient(ellipse 60% 80% at 50% 0%,rgba(232,183,49,.18),transparent 70%)}
+  .brand{font:800 .74rem Montserrat,sans-serif;letter-spacing:.24em;text-transform:uppercase;opacity:.85}
+  .brand b{color:var(--gold)}
+  .hero h1{margin-top:16px;font-size:clamp(2rem,6vw,3.3rem);font-weight:900}
+  .hero h1 span{color:var(--gold)}
+  .hero p{max-width:36em;margin:14px auto 0;color:rgba(255,255,255,.78);font-size:1.05rem}
+  .hello{max-width:640px;margin:24px auto 0;display:grid;grid-template-columns:76px 1fr;gap:14px;align-items:center;text-align:left;background:var(--slate);border:1px solid rgba(232,183,49,.3);border-radius:18px;padding:14px 16px}
+  .hello img{width:76px;height:76px;border-radius:50%;object-fit:cover;border:3px solid var(--gold)}
+  .hello p{margin:0;font:italic 400 .98rem/1.5 "PT Serif",serif;color:rgba(255,255,255,.9)}
+  .hello small{display:block;margin-top:4px;font:700 .7rem Montserrat,sans-serif;letter-spacing:.06em;color:var(--gold)}
+  .stats{display:flex;justify-content:center;gap:26px;flex-wrap:wrap;margin-top:22px}
+  .stats div{font:600 .74rem Montserrat,sans-serif;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.08em}
+  .stats b{display:block;font:900 1.8rem/1 Montserrat,sans-serif;color:var(--gold);letter-spacing:0;margin-bottom:4px}
+
+  /* Карта */
+  .mapbox{position:relative;margin-top:26px;background:radial-gradient(ellipse at 50% 40%,#22252b,#141518 75%);border:1px solid rgba(255,255,255,.08);border-radius:22px;overflow:hidden}
+  #map{display:block;width:100%;height:auto;touch-action:pan-y}
+  #map .land{fill:#33363d;stroke:#1d1f23;stroke-width:.4}
+  #map .land.on{fill:rgba(232,183,49,.55);stroke:#e8b731;stroke-width:.6}
+  #map .grat{fill:none;stroke:rgba(255,255,255,.05);stroke-width:.5}
+  .pin{cursor:pointer}
+  .pin circle.halo{fill:rgba(232,183,49,.25);animation:pulse 2.4s ease-out infinite;transform-box:fill-box;transform-origin:center}
+  .pin circle.dot{fill:var(--gold);stroke:var(--ink);stroke-width:1.5}
+  .pin text{font:900 9px Montserrat,sans-serif;fill:var(--ink);text-anchor:middle;dominant-baseline:central;pointer-events:none}
+  .pin.active circle.dot{fill:#fff}
+  @keyframes pulse{0%{transform:scale(.6);opacity:1}100%{transform:scale(2.2);opacity:0}}
+  .zoom{position:absolute;left:12px;bottom:12px;display:flex;gap:6px;flex-wrap:wrap}
+  .zoom button{font:700 .72rem Montserrat,sans-serif;color:#fff;background:rgba(23,24,27,.85);border:1px solid rgba(255,255,255,.18);border-radius:99px;padding:7px 12px;cursor:pointer}
+  .zoom button.on{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+  .maphint{position:absolute;right:12px;bottom:10px;font:600 .7rem Montserrat,sans-serif;color:rgba(255,255,255,.5)}
+  .mapfail{padding:40px 20px;text-align:center;color:rgba(255,255,255,.6);font:600 .9rem Montserrat,sans-serif}
+
+  /* Държави */
+  .sec-t{margin:40px 0 6px;font-size:1.5rem;font-weight:900}
+  .sec-s{margin:0 0 18px;color:rgba(255,255,255,.65)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+  .card{background:var(--slate);border:1px solid rgba(255,255,255,.08);border-radius:20px;overflow:hidden;cursor:pointer;transition:transform .2s,border-color .2s;display:flex;flex-direction:column}
+  .card:hover{transform:translateY(-3px);border-color:rgba(232,183,49,.5)}
+  .card .ph{position:relative;height:0;padding-top:72%;background:#111;overflow:hidden}
+  .card .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .card .no{position:absolute;left:12px;top:12px;width:30px;height:30px;border-radius:50%;background:var(--gold);color:var(--ink);display:grid;place-items:center;font:900 .85rem Montserrat,sans-serif}
+  .card .vid{position:absolute;right:10px;bottom:10px;background:rgba(23,24,27,.8);border:1px solid rgba(232,183,49,.5);border-radius:99px;padding:5px 10px;font:700 .66rem Montserrat,sans-serif;color:var(--gold)}
+  .card .bd{padding:14px 16px 16px}
+  .card .ct{font:800 .66rem Montserrat,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+  .card h3{font-size:1.1rem;font-weight:900;margin:4px 0 6px}
+  .card p{margin:0;font-size:.92rem;color:rgba(255,255,255,.72);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+
+  /* Прозорче с историята */
+  .modal{position:fixed;inset:0;z-index:50;background:rgba(10,11,13,.82);display:none;align-items:flex-end;justify-content:center;padding:0}
+  .modal.open{display:flex}
+  .sheet{background:var(--slate);width:100%;max-width:680px;max-height:92vh;overflow:auto;border-radius:22px 22px 0 0;border:1px solid rgba(232,183,49,.35);border-bottom:0;animation:up .3s ease}
+  @keyframes up{from{transform:translateY(40px);opacity:0}}
+  @media (min-width:760px){ .modal{align-items:center;padding:20px} .sheet{border-radius:22px;border-bottom:1px solid rgba(232,183,49,.35)} }
+  .gal{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:6px;background:#111}
+  .gal img{flex:none;width:100%;height:46vh;max-height:420px;object-fit:cover;scroll-snap-align:center}
+  .gal.two img{width:85%}
+  .sb{padding:18px 20px 24px;position:relative}
+  .close{position:sticky;float:right;top:10px;margin:-6px -6px 0 0;width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.1);color:#fff;font-size:1.3rem;cursor:pointer}
+  .sb .ct{font:800 .7rem Montserrat,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+  .sb h2{font-size:1.5rem;font-weight:900;margin:6px 0 14px}
+  .block{margin-bottom:14px;border-radius:14px;padding:14px 16px}
+  .block .lb{display:block;font:800 .66rem Montserrat,sans-serif;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}
+  .story{background:rgba(255,255,255,.04);border-left:3px solid var(--gold)}
+  .story .lb{color:var(--gold)}
+  .story .d{margin:0 0 10px;font-size:.95rem;color:rgba(255,255,255,.75)}
+  .story p{margin:0 0 8px;font:italic 400 1rem/1.6 "PT Serif",serif;color:rgba(255,255,255,.92)}
+  .story cite{display:block;font:700 .72rem Montserrat,sans-serif;font-style:normal;color:rgba(255,255,255,.5)}
+  .lesson{background:linear-gradient(135deg,rgba(232,183,49,.2),rgba(232,183,49,.06));border:1px solid rgba(232,183,49,.4)}
+  .lesson .lb{color:var(--gold)}
+  .lesson p{margin:0;font:800 1rem/1.4 Montserrat,sans-serif}
+  .doit{background:#fff;color:var(--ink)}
+  .doit .lb{color:var(--gold-dark)}
+  .doit p{margin:0;font-size:.98rem}
+  .video{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:center;background:rgba(255,255,255,.04);border:1.5px dashed rgba(232,183,49,.45)}
+  .video i{font-style:normal;width:44px;height:44px;border-radius:50%;background:var(--gold);display:grid;place-items:center;color:var(--ink);font-size:1rem}
+  .video b{display:block;font:800 .9rem Montserrat,sans-serif}
+  .video span{font-size:.85rem;color:rgba(255,255,255,.6)}
+  .nav2{display:flex;justify-content:space-between;gap:10px;margin-top:6px}
+  .nav2 button{flex:1;font:700 .8rem Montserrat,sans-serif;color:#fff;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:99px;padding:11px;cursor:pointer}
+
+  footer{text-align:center;padding:50px 20px 60px;color:rgba(255,255,255,.5);font:600 .82rem Montserrat,sans-serif}
+  footer a{color:var(--gold);text-decoration:none}
+  @media (max-width:640px){ .zoom button{padding:6px 10px;font-size:.66rem} .maphint{display:none} body{font-size:16px} .hero{padding-top:36px} .grid{grid-template-columns:1fr} .stats{gap:18px} }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="brand">Моите <b>365</b> добри дела · Бонус</div>
+    <h1>Доброто по света<br>с <span>Арман</span></h1>
+    <p>Арман-Онник Гаро Шакарян, авторът на книгата-дневник, е пътешественик. Книгата е пътувала с него от Америка до Азия и Африка – а навсякъде той е търсил доброто в хората.</p>
+    <div class="hello"><img src="snimki/arman.jpg" alt="Арман">
+      <div><p>„Бъдете добри хора, правете добро. Обещавам ви, ще ви се върне, че и в пъти повече!“</p><small>— Арман, в Instagram на книгата</small></div></div>
+    <div class="stats"><div><b id="stCountries">8</b>държави</div><div><b>4</b>континента</div><div><b>1</b>книга с него</div></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="mapbox">
+    <svg id="map" viewBox="0 0 960 500" role="img" aria-label="Карта на света с местата, където е бил Арман"></svg>
+    <div class="zoom" id="zoomBtns"><button data-z="world" class="on">Целият свят</button><button data-z="europe">Европа</button><button data-z="asia">Азия</button></div>
+    <div class="maphint">Натисни точка 👆</div>
+  </div>
+
+  <h2 class="sec-t">Историите</h2>
+  <p class="sec-s">Всяка държава – една история, един урок и едно добро дело, което можеш да направиш и ти.</p>
+  <div class="grid" id="grid"></div>
+</main>
+
+<footer>Още истории от пътуванията – в Instagram на Арман <a href="https://www.instagram.com/armandollio/" target="_blank" rel="noopener">@armandollio</a><br><br>Моите <b style="color:var(--gold)">365</b> добри дела</footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true"><div class="sheet" id="sheet"></div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script>
+  // Данни: историите са думите на Арман от публикациите в Instagram на книгата и от самата книга.
+  // „Направи го и ти“ са идеи за читателя. Видеата се добавят в полето video (линк), когато Арман ги запише.
+  const PLACES = [
+    { id: 'usa', no: 1, flag: '🇺🇸', country: 'САЩ', city: 'Бостън', iso: 840, at: [-71.06, 42.36], photos: ['road_airport.jpg', 'usa.jpg'],
+      title: 'Бригадата, която роди книгата',
+      desc: 'На летището в Бостън непознат помолил Арман за адаптер за телефона. Той не просто му услужил – подарил му го. Малко след това срещнал Ели и Тим, които му направили незабравим ден из Бостън. Тази история е в книгата под заглавие „Правете добро!“.',
+      story: ['Май 2024 заминах на бригада в Америка. Кацнах на летището в Бостън, САЩ през нощта и преспах там.',
+              'Знаете, че издадох книгата си по време на престоя си в Америка и десетки от вас се докоснаха до „Моите 365 добри дела“, преди дори аз да имам тази възможност.'],
+      source: 'от книгата („Правете добро!“) и от Instagram',
+      lesson: 'Доброто, което даваш, винаги намира пътя обратно.',
+      doit: 'Следващия път, когато някой непознат има нужда от нещо малко – зарядно, химикал, упътване – не просто му услужи. Подари го.' },
+    { id: 'thailand', no: 2, flag: '🇹🇭', country: 'Тайланд', city: '', iso: 764, at: [100.5, 13.75], photos: ['thailand.jpg'],
+      title: 'Мъжът на сергията',
+      story: ['Когато пристигнах в Тайланд, забелязах мъж с протезен крак, който работеше до късно вечерта на малка сергия за улична храна.',
+              'Вероятно беше прекарал целия ден прав, приготвяйки традиционна тайландска храна с усмивка на лицето.',
+              'Не знам каква е неговата история, но той ми напомни, че много хора носят тежести, които никога не виждаме, и въпреки това продължават да се борят всеки ден.'],
+      source: 'от Instagram на книгата',
+      lesson: 'Бъдете добри. Никога не знаете през какво минава човек.',
+      doit: 'Купи нещо от малка сергия или от възрастен продавач на улицата – и му пожелай хубав ден. Може да е единствената му усмивка за деня.' },
+    { id: 'malaysia', no: 3, flag: '🇲🇾', country: 'Малайзия', city: 'Пещерите Бату', iso: 458, at: [101.68, 3.24], photos: ['malaysia1.jpg', 'malaysia2.jpg'],
+      title: 'Книгата в пещерите Бату',
+      desc: 'Книгата-дневник стигна до пещерите Бату край Куала Лумпур – със златната статуя на входа и маймунките наоколо. Историята от тук Арман ще разкаже във видеото.',
+      story: [],
+      source: 'снимки от пътуването',
+      lesson: 'Доброто към животните също е добро дело.',
+      doit: 'Сипи вода на улично животно – особено в горещите дни. Точно това е „Ден 121“ от книгата.' },
+    { id: 'morocco', no: 4, flag: '🇲🇦', country: 'Мароко', city: 'Плажът Тагазут', iso: 504, at: [-9.71, 30.54], photos: ['morocco2.jpg', 'morocco1.jpg'],
+      title: 'Книгата посети и Африка',
+      desc: 'На плажа Тагазут на брега на Атлантическия океан – сред сърфовете и палмите.',
+      story: ['„Моите 365 добри дела“ посети и Африка 🌍'],
+      source: 'от Instagram на книгата',
+      lesson: 'Доброто няма граници – нито държавни, нито езикови.',
+      doit: 'Усмихни се и помогни на турист в твоя град – упъти го, снимай го, препоръчай му любимото си място.' },
+    { id: 'germany', no: 5, flag: '🇩🇪', country: 'Германия', city: 'Берлин', iso: 276, at: [13.38, 52.52], photos: ['germany1.jpg', 'germany2.jpg'],
+      title: 'Снимка за снимка',
+      story: ['С други туристи взаимно си направихме снимки пред Brandenburg Gate. 🇩🇪'],
+      source: 'от Instagram на книгата',
+      lesson: 'Понякога доброто е просто да предложиш: „Искате ли да ви снимам?“',
+      doit: 'Предложи на двойка или семейство, които се снимат поотделно, да ги снимаш заедно.' },
+    { id: 'belgium', no: 6, flag: '🇧🇪', country: 'Белгия', city: '', iso: 56, at: [4.35, 50.85], photos: ['belgium.jpg'],
+      title: 'Белгийските картофки',
+      story: ['Бях на гости на приятел в Белгия.', 'Излязохме да ме поразходи из центъра на града и ме почерпи с традиционните за Белгия пържени картофи с телешко месо и грейви сос.'],
+      source: 'от Instagram на книгата',
+      lesson: 'Ценете малките жестове на внимание и доброта.',
+      doit: 'Когато приятел ти дойде на гости, покажи му любимото си място в града – и го почерпи с нещо типично за вас.' },
+    { id: 'poland', no: 7, flag: '🇵🇱', country: 'Полша', city: 'Гданск', iso: 616, at: [18.65, 54.35], photos: ['poland.jpg'],
+      title: 'Нова година в Гданск',
+      desc: 'Книгата-дневник на площада в Гданск.',
+      story: ['Нова година – нова възможност да откриеш път към себе си с „Моите 365 добри дела“'],
+      source: 'от Instagram на книгата',
+      lesson: 'Всяко ново начало е шанс за повече доброта.',
+      doit: 'Започни утрешния ден с добро дело още преди да си провериш телефона.' },
+    { id: 'bulgaria', no: 8, flag: '🇧🇬', country: 'България', city: 'Витоша · Варна', iso: 100, at: [25.0, 42.75], photos: ['bg_vitosha.jpg', 'bg_kg.jpg', 'bg_scouts.jpg'],
+      title: 'Доброто у дома',
+      story: ['Днес „Моите 365 добри дела“ беше гост на дечицата от ДГ „Златно зрънце“. Срещата беше предвидена в рамките на 15–20 минути, но някак си неусетно, тя продължи час и половина.',
+              'Колко хубава и сладка инициатива на арменските скаути от Хоменътмен – Варна. 🍪'],
+      source: 'от Instagram на книгата',
+      lesson: 'Най-хубавите пътувания свършват у дома – с доброто, което носиш.',
+      doit: 'Отиди с книгата на любимото си място в България – и направи там добро дело. Снимай и сподели с #moite365dobridela.' },
+    { id: 'road', no: 9, flag: '✈️', country: 'По пътя', city: 'Летища и самолети', iso: null, at: null, photos: ['road_plane.jpg'],
+      title: 'Доброто между две летища',
+      story: ['Преотстъпих мястото си в самолета на жена, за да седне до детето си.', 'Да, можех да ги изхарча на летището за някакви „глупости“, но реших да бъдат по-смислено оползотворени.'],
+      source: 'от Instagram на книгата',
+      lesson: 'Пътуването е пълно с малки шансове за добро – стига да ги видиш.',
+      doit: 'Следващия път в самолета или автобуса отстъпи мястото си – или помогни някому с куфара.' }
+  ];
+
+  // ===== Карти на държавите =====
+  const grid = document.getElementById('grid');
+  grid.innerHTML = PLACES.map(p => `
+    <article class="card" data-id="${p.id}">
+      <div class="ph"><img src="snimki/${p.photos[0]}" alt="${p.country}" loading="lazy"><span class="no">${p.no}</span><span class="vid">🎬 Видео скоро</span></div>
+      <div class="bd"><div class="ct">${p.country}${p.city ? ' · ' + p.city : ''}</div><h3>${p.title}</h3><p>${p.desc || p.story[0]}</p></div>
+    </article>`).join('');
+  grid.addEventListener('click', e => { const c = e.target.closest('.card'); if (c) openPlace(c.dataset.id); });
+
+  // ===== Прозорче =====
+  const modal = document.getElementById('modal'), sheet = document.getElementById('sheet');
+  function openPlace(id) {
+    const i = PLACES.findIndex(p => p.id === id), p = PLACES[i];
+    sheet.innerHTML = `
+      <div class="gal ${p.photos.length > 1 ? 'two' : ''}">${p.photos.map(f => `<img src="snimki/${f}" alt="">`).join('')}</div>
+      <div class="sb"><button class="close" aria-label="Затвори">×</button>
+        <div class="ct">${p.country}${p.city ? ' · ' + p.city : ''}</div><h2>${p.title}</h2>
+        <div class="block story"><span class="lb">Историята</span>${p.desc ? `<div class="d">${p.desc}</div>` : ''}${p.story.length ? p.story.map(s => `<p>„${s}“</p>`).join('') + `<cite>— Арман, ${p.source}</cite>` : ''}</div>
+        <div class="block lesson"><span class="lb">Урокът</span><p>${p.lesson}</p></div>
+        <div class="block doit"><span class="lb">💡 Направи го и ти</span><p>${p.doit}</p></div>
+        <div class="block video">${p.video ? `<i>▶</i><div><b>Видео от Арман</b><span><a href="${p.video}" target="_blank" rel="noopener" style="color:var(--gold)">Гледай историята</a></span></div>` : `<i>▶</i><div><b>Видео от Арман – скоро</b><span>Арман ще разкаже тази история лично. Върни се тук след няколко дни.</span></div>`}</div>
+        <div class="nav2"><button data-go="${(i - 1 + PLACES.length) % PLACES.length}">← Предишна</button><button data-go="${(i + 1) % PLACES.length}">Следваща →</button></div>
+      </div>`;
+    modal.classList.add('open'); sheet.scrollTop = 0;
+    highlight(id);
+  }
+  modal.addEventListener('click', e => {
+    if (e.target === modal || e.target.closest('.close')) { modal.classList.remove('open'); highlight(null); }
+    const g = e.target.closest('[data-go]'); if (g) openPlace(PLACES[+g.dataset.go].id);
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { modal.classList.remove('open'); highlight(null); } });
+
+  // ===== Картата на света =====
+  let highlight = () => {};
+  (async () => {
+    const svg = d3.select('#map'), W = 960, H = 500;
+    const world = await d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json');
+    const countries = topojson.feature(world, world.objects.countries).features.filter(f => f.id !== '010');
+    const proj = d3.geoNaturalEarth1().fitExtent([[10, 10], [W - 10, H - 10]], { type: 'Sphere' });
+    const path = d3.geoPath(proj);
+    const g = svg.append('g');
+    g.append('path').attr('class', 'grat').attr('d', path(d3.geoGraticule10()));
+    const visited = new Set(PLACES.filter(p => p.iso).map(p => String(p.iso).padStart(3, '0')));
+    g.selectAll('path.land').data(countries).join('path').attr('class', d => 'land' + (visited.has(d.id) ? ' on' : '')).attr('d', path);
+    const pins = g.selectAll('g.pin').data(PLACES.filter(p => p.at)).join('g').attr('class', 'pin')
+      .attr('transform', d => `translate(${proj(d.at)})`).on('click', (e, d) => openPlace(d.id));
+    pins.append('circle').attr('class', 'halo').attr('r', 9);
+    pins.append('circle').attr('class', 'dot').attr('r', 8);
+    pins.append('text').text(d => d.no);
+    // приближаване: целият свят / Европа / Азия
+    const zoom = d3.zoom().scaleExtent([1, 8]).on('zoom', e => { g.attr('transform', e.transform); pins.selectAll('circle.dot').attr('r', 8 / Math.sqrt(e.transform.k)); pins.selectAll('circle.halo').attr('r', 9 / Math.sqrt(e.transform.k)); pins.selectAll('text').style('font-size', 9 / Math.sqrt(e.transform.k) + 'px'); });
+    svg.call(zoom).on('wheel.zoom', null);
+    const views = { world: [[-180, -60], [180, 80]], europe: [[-12, 34], [30, 58]], asia: [[90, -5], [110, 20]] };
+    const go = (box) => { const [[x0, y0], [x1, y1]] = [proj([box[0][0], box[1][1]]), proj([box[1][0], box[0][1]])];
+      const k = Math.min(8, 0.9 / Math.max((x1 - x0) / W, (y1 - y0) / H));
+      svg.transition().duration(700).call(zoom.transform, d3.zoomIdentity.translate(W / 2, H / 2).scale(k).translate(-(x0 + x1) / 2, -(y0 + y1) / 2)); };
+    document.getElementById('zoomBtns').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return;
+      document.querySelectorAll('#zoomBtns button').forEach(x => x.classList.toggle('on', x === b)); go(views[b.dataset.z]); });
+    highlight = id => pins.classed('active', d => d.id === id);
+    // на телефон картата започва приближена към местата (Америка → Азия)
+    if (innerWidth < 640) { svg.attr('viewBox', '150 40 700 300'); }
+  })().catch(() => { document.querySelector('.mapbox').innerHTML = '<div class="mapfail">Картата не можа да се зареди – провери интернета. Историите са отдолу 👇</div>'; });
+</script>
+</body>
+</html>
