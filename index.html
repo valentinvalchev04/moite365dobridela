@@ -1428,6 +1428,8 @@
   const PRICE = "14,80 €";
   // Имейл, на който пристигат поръчките
   const ORDER_EMAIL = "armanonnik@gmail.com";
+  // Копие на всяка поръчка и всеки нов отзив
+  const COPY_EMAIL = "vv134350@gmail.com";
   // Поръчките се изпращат автоматично през безплатната услуга FormSubmit.co.
   // При първата поръчка FormSubmit праща писмо за потвърждение на ORDER_EMAIL – трябва да се натисне „Activate“.
   const FORM_ENDPOINT = "https://formsubmit.co/ajax/" + ORDER_EMAIL;
@@ -1567,7 +1569,7 @@
     const email = document.getElementById('arEmail').value.trim();
     const toSheet = sheetPost({ type: 'review', name, stars: arRating, text, email, photo: arPhoto });
     const toMail = fetch(FORM_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ _subject: 'Нов отзив за одобрение – ' + name, 'Тип': 'Отзив', 'Име': name, 'Оценка': arRating + ' от 5', 'Отзив': text, 'Имейл': email || '—', 'Снимка': arPhoto ? 'Да (в Google Таблицата)' : 'Не', _template: 'table' }) })
+      body: JSON.stringify({ _subject: 'Нов отзив за одобрение – ' + name, 'Тип': 'Отзив', 'Име': name, 'Оценка': arRating + ' от 5', 'Отзив': text, 'Имейл': email || '—', 'Снимка': arPhoto ? 'Да (в Google Таблицата)' : 'Не', _template: 'table', _cc: COPY_EMAIL }) })
       .then(r => r.json()).then(j => String(j.success) === 'true', () => false);
     const [okSheet, okMail] = await Promise.all([toSheet, toMail]);
     btn.disabled = false; btn.textContent = 'Публикувай отзива';
@@ -1802,12 +1804,13 @@
     new FormData(form).forEach((v, k) => { if (k !== '_gotcha' && k !== 'dedMode') data[k] = v; });
     data['Цена за брой'] = eur(UNIT_PRICE);
     if (order.pct) data['Отстъпка'] = order.pct + '% (−' + eur(order.save) + ')';
-    data['Дигитален пакет'] = order.pkg ? 'Да – „365 идеи за добри дела“ (+' + eur(order.pkg) + ')' : 'Не';
+    if (order.pkg) data['Дигитален пакет'] = 'Да (+' + eur(order.pkg) + ')';
     data['Обща сума'] = eur(order.total) + ' + доставка (по тарифата на куриера)';
     data['Плащане'] = 'Наложен платеж';
     const summary = { ...data };
     data._subject = 'Нова поръчка – ' + data['Име'] + ' ' + data['Фамилия'] + ' (' + data['Брой'] + ' бр.)';
     data._replyto = data['Имейл'];
+    data._cc = COPY_EMAIL;   // копие на всяка поръчка
     data._template = 'table';
     // Имейл за потвърждение до клиента (FormSubmit го праща на полето "email")
     data.email = data['Имейл'];
