@@ -2,7 +2,6 @@
 // Пази поръчките, отзивите и промените от админ панела в базата Upstash Redis (Vercel → Storage),
 // а качените снимки – във Vercel Blob. Сайтът и admin.html говорят с адреса /api/data.
 import { createHash, createHmac, randomBytes, timingSafeEqual } from 'node:crypto';
-import { put } from '@vercel/blob';
 
 const env = process.env;
 const pick = re => { const k = Object.keys(env).find(k => re.test(k) && env[k]); return k ? env[k] : ''; };
@@ -137,6 +136,7 @@ async function post(req, res) {
     case 'upload': {
       if (!BLOB) return send(res, 200, { ok: false, error: 'Хранилището за снимки не е свързано (Vercel → Storage → Blob).' });
       const name = str(d.name, 60).replace(/\.[^.]+$/, '').replace(/[^a-z0-9-]+/gi, '-').toLowerCase() || 'snimka';
+      const { put } = await import('@vercel/blob');
       const blob = await put('site/' + name + '.jpg', Buffer.from(String(d.data || ''), 'base64'),
         { access: 'public', contentType: 'image/jpeg', addRandomSuffix: true, token: BLOB });
       return send(res, 200, { ok: true, url: blob.url });
@@ -184,6 +184,12 @@ async function post(req, res) {
 
 export default async function handler(req, res) {
   try {
+    // проверка на връзките (без тайни данни): /api/data?action=ping
+    if (req.query && req.query.action === 'ping') {
+      let db = 'няма';
+      if (R_URL && R_TOKEN) { try { db = (await redis('PING')) === 'PONG' ? 'ok' : 'грешка'; } catch (e) { db = 'грешка: ' + e.message; } }
+      return send(res, 200, { db, blob: BLOB ? 'ok' : 'няма', env: Object.keys(env).filter(k => /KV|REDIS|UPSTASH|BLOB/.test(k)) });
+    }
     if (!R_URL || !R_TOKEN) return send(res, 500, { ok: false, error: 'Базата данни не е свързана (Vercel → Storage → Upstash).' });
     if (req.method === 'GET') return await get(req, res);
     if (req.method === 'POST') return await post(req, res);
