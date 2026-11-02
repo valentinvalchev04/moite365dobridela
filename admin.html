@@ -9,15 +9,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-  :root{--ink:#17181b;--slate:#24262b;--slate-2:#2d3036;--gold:#e8b731;--gold-dark:#a87d12;--paper:#f8f5ef;--text:#2a2c30;--muted:#6b6f76;--line:#e6e0d4;--ok:#3fbf73;--bad:#e06c5a;color-scheme:light}
+  :root{--ink:#17181b;--slate:#24262b;--slate-2:#2d3036;--gold:#e8b731;--gold-dark:#a87d12;--paper:#f8f5ef;--text:#2a2c30;--muted:#6b6f76;--line:#e6e0d4;--ok:#3fbf73;--bad:#e06c5a;color-scheme:light;
+    --s0:#b07d00;--s0b:#fff4cc;--s1:#1f5aa6;--s1b:#dceafb;--s2:#5b3c99;--s2b:#ebe3f7;--s3:#2e7d32;--s3b:#dff1e0;--s4:#b3261e;--s4b:#f6dcdc}
   *{box-sizing:border-box}
   body{margin:0;background:var(--paper);color:var(--text);font:400 16px/1.6 "PT Serif",Georgia,serif}
   h1,h2,h3{font-family:Montserrat,system-ui,sans-serif;margin:0;line-height:1.2}
-  button,input,textarea{font:inherit}
+  button,input,textarea,select{font:inherit}
+  a,button,select,input,textarea,label{touch-action:manipulation}
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:800 .82rem Montserrat,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:13px 22px;border-radius:999px;border:0;background:var(--gold);color:var(--ink);cursor:pointer;text-decoration:none;transition:filter .2s}
   .btn:hover{filter:brightness(1.06)}
   .btn:disabled{opacity:.5;cursor:not-allowed}
-  .btn-2{display:inline-flex;align-items:center;justify-content:center;gap:6px;font:600 .82rem Montserrat,sans-serif;padding:9px 14px;border-radius:999px;border:1.5px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;text-decoration:none}
+  .btn-2{display:inline-flex;align-items:center;justify-content:center;gap:6px;font:600 .82rem Montserrat,sans-serif;padding:9px 14px;border-radius:999px;border:1.5px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;text-decoration:none;min-height:40px}
   .btn-2:hover{border-color:var(--ink)}
 
   /* Вход */
@@ -31,7 +33,6 @@
   .login input{background:var(--ink);color:#fff;border:1.5px solid rgba(255,255,255,.15);border-radius:10px;padding:13px 14px;outline:none}
   .login input:focus{border-color:var(--gold)}
   .err{color:#f08b7a;font:600 .85rem Montserrat,sans-serif;min-height:1.2em;margin:0}
-  .demo-note{font:500 .75rem Montserrat,sans-serif;color:rgba(255,255,255,.5);text-align:center}
 
   /* Панел */
   .top{position:sticky;top:0;z-index:20;background:var(--ink);color:#fff;display:flex;align-items:center;gap:14px;padding:12px 20px;flex-wrap:wrap}
@@ -39,14 +40,16 @@
   .top .logo b{color:var(--gold)}
   .top .who{font:600 .8rem Montserrat,sans-serif;color:rgba(255,255,255,.7)}
   .top .btn-2{background:transparent;color:#fff;border-color:rgba(255,255,255,.3)}
-  .mode{font:700 .7rem Montserrat,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:99px;background:rgba(232,183,49,.18);color:var(--gold)}
   .layout{display:grid;grid-template-columns:230px 1fr;gap:28px;max-width:1180px;margin:0 auto;padding:26px 20px 120px}
+  .layout > *{min-width:0}
   .side{position:sticky;top:80px;align-self:start;display:grid;gap:4px}
-  .side button{text-align:left;background:none;border:0;padding:10px 14px;border-radius:10px;font:600 .9rem Montserrat,sans-serif;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;gap:8px}
+  .side button{text-align:left;background:none;border:0;padding:10px 14px;border-radius:10px;font:600 .9rem Montserrat,sans-serif;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:8px}
   .side button:hover{background:#fff}
   .side button.on{background:var(--ink);color:#fff}
   .side .cnt{font-size:.72rem;opacity:.6}
-  .side .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);align-self:center}
+  .side .dot{width:8px;height:8px;border-radius:50%;background:var(--gold)}
+  .side .badge{font:800 .7rem Montserrat,sans-serif;background:var(--gold);color:var(--ink);border-radius:99px;padding:2px 8px}
+  .side .grp{font:700 .68rem Montserrat,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:16px 14px 4px}
   .help{background:#fff;border-radius:16px;padding:16px 18px;font-size:.9rem;color:var(--muted);margin-bottom:20px;border-left:4px solid var(--gold)}
   .help b{color:var(--ink)}
   .sec-title{font-size:1.4rem;margin:0 0 16px}
@@ -57,8 +60,8 @@
   .f-head .lbl{font:700 .78rem Montserrat,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-dark)}
   .f-head .tag{font:700 .66rem Montserrat,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;border-radius:99px;background:var(--gold);color:var(--ink)}
   .f-head .reset{margin-left:auto;font-size:.75rem;padding:6px 11px}
-  .f textarea,.f input[type=text]{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:11px 13px;outline:none;resize:vertical;min-height:46px;line-height:1.55;background:#fdfcf9}
-  .f textarea:focus,.f input[type=text]:focus{border-color:var(--gold);background:#fff}
+  .f textarea,.f input[type=text],.f input[type=password]{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:11px 13px;outline:none;resize:vertical;min-height:46px;line-height:1.55;background:#fdfcf9}
+  .f textarea:focus,.f input:focus{border-color:var(--gold);background:#fff}
   .f .orig{margin-top:6px;font-size:.8rem;color:var(--muted)}
   .img-f{display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:center}
   .img-f img{width:150px;height:150px;object-fit:cover;border-radius:12px;background:var(--line)}
@@ -71,13 +74,73 @@
   .spin{display:inline-block;width:14px;height:14px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:sp .8s linear infinite}
   @keyframes sp{to{transform:rotate(360deg)}}
   [hidden]{display:none!important}
+
+  /* Поръчки */
+  .kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-bottom:18px}
+  .kpi{background:#fff;border-radius:14px;padding:14px 16px;border-top:3px solid var(--gold);box-shadow:0 4px 16px rgba(0,0,0,.04);min-width:0}
+  .kpi span{display:block;font:700 .66rem Montserrat,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .kpi b{display:block;font:800 1.5rem Montserrat,sans-serif;color:var(--ink);margin-top:4px;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .kpi.warn b{color:var(--s0)} .kpi.good b{color:var(--s3)}
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
+  .toolbar input{flex:1 1 220px;min-width:0;border:1.5px solid var(--line);border-radius:999px;padding:10px 16px;outline:none;background:#fff}
+  .toolbar input:focus{border-color:var(--gold)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+  .chip{font:700 .75rem Montserrat,sans-serif;padding:8px 13px;border-radius:99px;border:1.5px solid var(--line);background:#fff;cursor:pointer;min-height:36px}
+  .chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .chip i{font-style:normal;opacity:.6;margin-left:4px}
+  .olist{display:grid;gap:14px}
+  .oc{background:#fff;border-radius:16px;box-shadow:0 4px 16px rgba(0,0,0,.05);border-left:6px solid var(--sc);overflow:hidden;min-width:0}
+  .oc-h{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--sb);flex-wrap:wrap}
+  .oc-h .no{font:800 1rem Montserrat,sans-serif;color:var(--ink)}
+  .oc-h .date{font:600 .8rem Montserrat,sans-serif;color:var(--muted)}
+  .oc-h select{margin-left:auto;font:800 .8rem Montserrat,sans-serif;border:0;border-radius:99px;padding:8px 30px 8px 14px;background:var(--sc);color:#fff;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,#fff 50%),linear-gradient(135deg,#fff 50%,transparent 50%);background-position:calc(100% - 15px) 52%,calc(100% - 10px) 52%;background-size:5px 5px;background-repeat:no-repeat;min-height:36px}
+  .oc-b{padding:14px 16px 16px;display:grid;gap:12px}
+  .oc-name{font:800 1.1rem Montserrat,sans-serif;color:var(--ink)}
+  .oc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px 18px}
+  .oc-grid div{min-width:0;overflow-wrap:anywhere;font-size:.95rem}
+  .oc-grid span,.oc-f label span{display:block;font:700 .64rem Montserrat,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .oc-grid a{color:var(--ink);font-weight:700}
+  .oc .wish{background:#fbf7ec;border-radius:10px;padding:10px 12px;font-size:.92rem;white-space:pre-line}
+  .oc .wish b{font-family:Montserrat,sans-serif;font-size:.78rem}
+  .oc-f{display:grid;grid-template-columns:1fr 2fr;gap:10px}
+  .oc-f input,.oc-f textarea{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:9px 12px;outline:none;background:#fdfcf9;min-height:42px;resize:vertical}
+  .oc-f input:focus,.oc-f textarea:focus{border-color:var(--gold);background:#fff}
+  .oc-foot{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font:600 .78rem Montserrat,sans-serif;color:var(--muted)}
+  .oc-foot .st-ok{color:var(--ok)} .oc-foot .st-bad{color:var(--bad)}
+  .oc-foot .del{margin-left:auto;background:none;border:0;color:var(--bad);font:700 .78rem Montserrat,sans-serif;cursor:pointer;padding:8px 4px;min-height:36px}
+  .oc-foot .del.sure{background:var(--bad);color:#fff;border-radius:99px;padding:8px 14px}
+  .empty{background:#fff;border-radius:16px;padding:40px 20px;text-align:center;color:var(--muted);font-size:1rem}
+  .empty b{display:block;font:800 1.1rem Montserrat,sans-serif;color:var(--ink);margin-bottom:6px}
+  .s0{--sc:var(--s0);--sb:var(--s0b)} .s1{--sc:var(--s1);--sb:var(--s1b)} .s2{--sc:var(--s2);--sb:var(--s2b)} .s3{--sc:var(--s3);--sb:var(--s3b)} .s4{--sc:var(--s4);--sb:var(--s4b)}
+  /* Отзиви */
+  .rv{background:#fff;border-radius:16px;padding:16px 18px;box-shadow:0 4px 16px rgba(0,0,0,.04);display:grid;grid-template-columns:auto 1fr;gap:14px;border-left:6px solid var(--line)}
+  .rv.on{border-left-color:var(--ok)}
+  .rv img{width:64px;height:64px;border-radius:50%;object-fit:cover}
+  .rv .ph{width:64px;height:64px;border-radius:50%;background:var(--ink);color:var(--gold);display:grid;place-items:center;font:800 1.4rem Montserrat,sans-serif}
+  .rv .meta{font:600 .8rem Montserrat,sans-serif;color:var(--muted)}
+  .rv .stars{color:var(--gold);letter-spacing:2px}
+  .rv p{margin:6px 0 10px}
+  .rv .acts{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .tgl{display:inline-flex;align-items:center;gap:8px;font:700 .8rem Montserrat,sans-serif;cursor:pointer;padding:8px 14px;border-radius:99px;border:1.5px solid var(--line);background:#fff;min-height:40px}
+  .tgl.on{background:var(--ok);border-color:var(--ok);color:#fff}
+  @media (max-width:980px){ .kpis{grid-template-columns:repeat(3,minmax(0,1fr))} }
   @media (max-width:820px){
     .layout{grid-template-columns:1fr;padding:16px 16px 120px}
     .side{position:static;display:flex;overflow-x:auto;gap:6px;padding-bottom:6px}
     .side button{white-space:nowrap;flex:none}
+    .side .grp{display:none}
     .img-f{grid-template-columns:96px 1fr}
     .img-f img{width:96px;height:96px}
     .top .who{display:none}
+    .top{padding:10px 16px;gap:8px}
+    .top .logo{flex-basis:100%;font-size:.82rem}
+    .top .btn-2{min-height:36px;padding:7px 12px;font-size:.75rem}
+    .oc-grid{grid-template-columns:1fr 1fr}
+    .oc-h select{margin-left:0}
+    .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .kpi b{font-size:1.25rem}
+    .oc-f{grid-template-columns:1fr}
+    .rv{grid-template-columns:1fr}
   }
 </style>
 </head>
@@ -88,12 +151,11 @@
   <form id="loginForm" autocomplete="on">
     <div class="logo">МОИТЕ <b>365</b> ДОБРИ ДЕЛА</div>
     <h1>Админ панел</h1>
-    <p>Влез, за да промениш текстове и снимки на сайта.</p>
-    <label>Потребител<input id="lUser" autocomplete="username" required></label>
+    <p>Влез, за да видиш поръчките и да промениш текстове и снимки на сайта.</p>
+    <label>Потребител<input id="lUser" autocomplete="username" autocapitalize="none" required></label>
     <label>Парола<input id="lPass" type="password" autocomplete="current-password" required></label>
     <p class="err" id="lErr"></p>
     <button class="btn" id="lBtn" type="submit">Влез</button>
-    <div class="demo-note" id="demoNote" hidden>Демо режим – Google Таблицата още не е свързана. Промените се пазят само в този браузър.</div>
   </form>
 </section>
 
@@ -101,21 +163,52 @@
 <div id="appView" hidden>
   <header class="top">
     <div class="logo">МОИТЕ <b>365</b> ДОБРИ ДЕЛА · админ</div>
-    <span class="mode" id="modeTag"></span>
     <span class="who" id="who"></span>
-    <a class="btn-2" href="index.html" target="_blank" rel="noopener">Виж сайта ↗</a>
+    <a class="btn-2" href="/" target="_blank" rel="noopener">Виж сайта ↗</a>
     <button class="btn-2" id="logout" type="button">Изход</button>
   </header>
   <div class="layout">
     <nav class="side" id="side"></nav>
     <main>
-      <div class="help"><b>Как се работи:</b> промени текста или снимката, после натисни <b>„Запази“</b> долу. Промененото поле става със златна рамка.
-        В текстовете <b>**две звездички**</b> правят думите удебелени, а нов ред в полето е нов ред и на сайта.</div>
-      <h2 class="sec-title" id="secTitle"></h2>
-      <div class="fields" id="fields"></div>
+      <!-- Поръчки -->
+      <section id="ordersView" hidden>
+        <h2 class="sec-title">Поръчки</h2>
+        <div class="kpis" id="kpis"></div>
+        <div class="toolbar">
+          <input id="oq" type="search" placeholder="Търси: име, телефон, град, №…">
+          <button class="btn-2" id="oRefresh" type="button">↻ Обнови</button>
+          <button class="btn-2" id="oCsv" type="button">⬇ Свали в Excel</button>
+        </div>
+        <div class="chips" id="chips"></div>
+        <div class="olist" id="olist"></div>
+      </section>
+      <!-- Отзиви -->
+      <section id="reviewsView" hidden>
+        <h2 class="sec-title">Отзиви от читатели</h2>
+        <div class="help">Новите отзиви от сайта чакат тук. Натисни <b>„Покажи на сайта“</b> и отзивът се появява в лентата с отзиви (до минута).</div>
+        <div class="olist" id="rlist"></div>
+      </section>
+      <!-- Парола -->
+      <section id="passView" hidden>
+        <h2 class="sec-title">Смяна на паролата</h2>
+        <form class="f" id="passForm" style="display:grid;gap:12px;max-width:420px">
+          <label>Стара парола<input type="password" id="pOld" autocomplete="current-password" required></label>
+          <label>Нова парола (поне 6 знака)<input type="password" id="pNew" autocomplete="new-password" required minlength="6"></label>
+          <label>Повтори новата<input type="password" id="pNew2" autocomplete="new-password" required></label>
+          <p class="err" id="pMsg"></p>
+          <button class="btn" type="submit">Смени паролата</button>
+        </form>
+      </section>
+      <!-- Текстове и снимки -->
+      <section id="contentView" hidden>
+        <div class="help"><b>Как се работи:</b> промени текста или снимката, после натисни <b>„Запази“</b> долу. Промененото поле става със златна рамка.
+          В текстовете <b>**две звездички**</b> правят думите удебелени, а нов ред в полето е нов ред и на сайта. Промените се виждат на сайта до минута.</div>
+        <h2 class="sec-title" id="secTitle"></h2>
+        <div class="fields" id="fields"></div>
+      </section>
     </main>
   </div>
-  <div class="savebar">
+  <div class="savebar" id="savebar" hidden>
     <span class="msg" id="saveMsg">Няма промени</span>
     <button class="btn" id="saveBtn" type="button" disabled>Запази</button>
   </div>
@@ -124,31 +217,31 @@
 
 <script src="cms.js"></script>
 <script>
-  // Потребители за ДЕМО режима (докато Google Таблицата не е свързана).
-  // Щом SHEET_API в index.html бъде попълнен, паролите се проверяват само от Google и този блок трябва да се изтрие.
-  const DEMO_USERS = {
-    arman: { name: 'Арман', hash: 'd7af2a4dd35077a1b86a432a2b6cca83216b27956d8426143822e1a5e4a12746' },
-    admin: { name: 'Администратор', hash: '6a299e316bf487e54d7c002d8b359a1cdf7153e27b40ff34442628f328b91871' }
-  };
-
   const $ = id => document.getElementById(id);
-  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  let API = '', session = null, fields = [], saved = {}, draft = {}, current = null;
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const eur = n => (Number(n) || 0).toFixed(2).replace('.', ',') + ' €';
+  const when = iso => { const d = new Date(iso); return isNaN(d) ? '' : d.toLocaleDateString('bg-BG', { day: '2-digit', month: '2-digit', year: 'numeric' }) + ' ' + d.toLocaleTimeString('bg-BG', { hour: '2-digit', minute: '2-digit' }); };
+  let API = '', session = null, fields = [], saved = {}, draft = {}, current = '@orders';
+  let orders = [], reviews = [], STATUSES = ['Нова', 'Потвърдена', 'Изпратена', 'Платена', 'Отказана'], oFilter = 'Всички';
 
-  // Адресът на Google Таблицата се чете направо от index.html, за да е на едно място
+  // Адресът на базата се чете направо от index.html, за да е на едно място
   async function loadSite() {
     const html = await (await fetch('index.html', { cache: 'no-store' })).text();
     const m = html.match(/const SHEET_API = "([^"]*)"/); API = m ? m[1] : '';
     const doc = new DOMParser().parseFromString(html, 'text/html');
     fields = CMS.fields(doc).map(f => ({ ...f, el: null }));
     CMS.SETTINGS.forEach(s => fields.push({ ...s, section: 'Настройки', sectionId: 'set', value: '', label: s.label }));
-    $('demoNote').hidden = !!API;
+    if (!API) $('lErr').textContent = 'Базата данни още не е свързана.';
   }
   const post = async body => {
-    const r = await fetch(API, { method: 'POST', body: JSON.stringify(body) }); // text/plain – без CORS проверка
-    return r.json();
+    const r = await fetch(API, { method: 'POST', body: JSON.stringify({ ...body, token: session && session.token }) });
+    const d = await r.json().catch(() => ({ ok: false, error: 'Сървърът не отговори (' + r.status + ').' }));
+    if (d.error === 'auth') { try { sessionStorage.removeItem('cms-session'); localStorage.removeItem('cms-session'); } catch { } alert2('Сесията изтече – влез отново.'); setTimeout(() => location.reload(), 1200); }
+    return d;
   };
-  const sha = async s => [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)))].map(b => b.toString(16).padStart(2, '0')).join('');
+  const alert2 = t => { msg(t, 'bad'); $('savebar').hidden = false; };
+  const store = { get() { try { return JSON.parse(localStorage.getItem('cms-session') || sessionStorage.getItem('cms-session') || 'null'); } catch { return null; } },
+    set(s) { try { localStorage.setItem('cms-session', JSON.stringify(s)); } catch { } } };
 
   // ===== Вход =====
   $('loginForm').addEventListener('submit', async e => {
@@ -156,43 +249,174 @@
     const user = $('lUser').value.trim().toLowerCase(), pass = $('lPass').value;
     $('lBtn').disabled = true; $('lBtn').innerHTML = '<span class="spin"></span>';
     try {
-      if (API) {
-        const d = await post({ type: 'login', user, pass });
-        if (!d.ok) throw new Error(d.error || 'Грешно име или парола.');
-        session = { user, name: d.name, token: d.token };
-      } else {
-        const u = DEMO_USERS[user];
-        if (!u || u.hash !== await sha('365dd:' + user + ':' + pass)) throw new Error('Грешно име или парола.');
-        session = { user, name: u.name, token: 'demo' };
-      }
-      try { sessionStorage.setItem('cms-session', JSON.stringify(session)); } catch { }
+      const d = await post({ type: 'login', user, pass });
+      if (!d.ok) throw new Error(d.error || 'Грешно име или парола.');
+      session = { user, name: d.name, token: d.token }; store.set(session);
       await openApp();
     } catch (err) { $('lErr').textContent = err.message === 'Failed to fetch' ? 'Няма връзка. Опитай пак.' : err.message; }
     $('lBtn').disabled = false; $('lBtn').textContent = 'Влез';
   });
-  $('logout').addEventListener('click', () => { try { sessionStorage.removeItem('cms-session'); } catch { } location.reload(); });
+  $('logout').addEventListener('click', () => { try { localStorage.removeItem('cms-session'); sessionStorage.removeItem('cms-session'); } catch { } location.reload(); });
 
   // ===== Панел =====
   async function openApp() {
-    saved = (API ? await CMS.fresh(API) : CMS.read(CMS.DEMO)) || {};
-    draft = JSON.parse(JSON.stringify(saved));
     $('loginView').hidden = true; $('appView').hidden = false;
     $('who').textContent = 'Здравей, ' + session.name + ' 👋';
-    $('modeTag').textContent = API ? 'на живо' : 'демо';
-    current = current || fields[0].section;
-    renderSide(); renderFields(); updateBar();
+    show(current);
+    CMS.fresh(API).then(c => { saved = c || {}; draft = JSON.parse(JSON.stringify(saved)); renderSide(); if (!current.startsWith('@')) renderFields(); updateBar(); }).catch(() => { });
+    loadOrders(); loadReviews();
+    setInterval(() => { if (!document.hidden) { loadOrders(true); loadReviews(true); } }, 60000);
   }
   const sections = () => [...new Set(fields.map(f => f.section))];
   const valueOf = f => draft[f.key] && (f.type === 'setting' || draft[f.key].o === f.value) ? draft[f.key].v : (f.type === 'setting' ? '' : f.value);
   const isChanged = f => !!draft[f.key] && (f.type === 'setting' || draft[f.key].o === f.value);
   function renderSide() {
-    $('side').innerHTML = sections().map(s => {
-      const list = fields.filter(f => f.section === s), ch = list.some(isChanged);
-      return `<button type="button" data-s="${esc(s)}" class="${s === current ? 'on' : ''}">${esc(s)} ${ch ? '<span class="dot"></span>' : `<span class="cnt">${list.length}</span>`}</button>`;
+    const nNew = orders.filter(o => o.status === 'Нова').length, nRev = reviews.filter(r => !r.approved).length;
+    const item = (id, label, extra) => `<button type="button" data-s="${esc(id)}" class="${id === current ? 'on' : ''}">${label} ${extra || ''}</button>`;
+    $('side').innerHTML =
+      item('@orders', '📦 Поръчки', nNew ? `<span class="badge">${nNew} нови</span>` : '') +
+      item('@reviews', '⭐ Отзиви', nRev ? `<span class="badge">${nRev}</span>` : '') +
+      '<div class="grp">Текстове и снимки</div>' +
+      sections().map(s => { const list = fields.filter(f => f.section === s); return item(s, esc(s), list.some(isChanged) ? '<span class="dot"></span>' : `<span class="cnt">${list.length}</span>`); }).join('') +
+      '<div class="grp">Профил</div>' + item('@pass', '🔑 Парола');
+  }
+  function show(id) {
+    current = id;
+    $('ordersView').hidden = id !== '@orders'; $('reviewsView').hidden = id !== '@reviews'; $('passView').hidden = id !== '@pass';
+    $('contentView').hidden = id.startsWith('@'); $('savebar').hidden = id.startsWith('@') && !changes();
+    if (!id.startsWith('@')) renderFields();
+    renderSide(); scrollTo(0, 0);
+  }
+  $('side').addEventListener('click', e => { const b = e.target.closest('button'); if (b) show(b.dataset.s); });
+
+  // ===== Поръчки =====
+  const sIdx = s => Math.max(0, STATUSES.indexOf(s));
+  async function loadOrders(quiet) {
+    if (!quiet) $('olist').innerHTML = '<div class="empty"><span class="spin"></span></div>';
+    const d = await post({ type: 'orders' }).catch(() => ({ ok: false, error: 'Няма връзка.' }));
+    if (!d.ok) { if (!quiet) $('olist').innerHTML = `<div class="empty"><b>Поръчките не се заредиха</b>${esc(d.error || '')}</div>`; return; }
+    const before = orders.map(o => o.id).join();
+    if (d.statuses) STATUSES = d.statuses;
+    orders = d.orders || [];
+    renderSide();
+    // при тихо обновяване не пипаме картите, докато някой пише в тях
+    if (!quiet || (before !== orders.map(o => o.id).join() && !document.activeElement.closest('.oc'))) renderOrders();
+    else renderKpis();
+  }
+  function renderKpis() {
+    const live = orders.filter(o => o.status !== 'Отказана');
+    const books = live.reduce((s, o) => s + (+o['Брой'] || 0), 0);
+    const k = (label, val, cls) => `<div class="kpi ${cls || ''}"><span>${label}</span><b>${val}</b></div>`;
+    $('kpis').innerHTML = k('Поръчки', live.length) + k('Чакат обработка', orders.filter(o => o.status === 'Нова').length, 'warn') + k('Книги', books)
+      + k('Оборот', eur(live.reduce((s, o) => s + (+o.sum || 0), 0))) + k('Прибрани пари', eur(orders.filter(o => o.status === 'Платена').reduce((s, o) => s + (+o.sum || 0), 0)), 'good');
+    $('chips').innerHTML = ['Всички', ...STATUSES].map(s => `<button type="button" class="chip ${s === oFilter ? 'on' : ''}" data-f="${s}">${s}<i>${s === 'Всички' ? orders.length : orders.filter(o => o.status === s).length}</i></button>`).join('');
+  }
+  const wishesOf = o => Object.keys(o).filter(k => k.startsWith('Пожелание')).map(k => `<b>${esc(k)}:</b> ${esc(o[k])}`).join('\n');
+  function renderOrders() {
+    renderKpis();
+    const q = $('oq').value.trim().toLowerCase();
+    const list = orders.filter(o => (oFilter === 'Всички' || o.status === oFilter) &&
+      (!q || [o.id, o['Име'], o['Фамилия'], o['Телефон'], o['Имейл'], o['Град'], o['Офис'], o.tracking].join(' ').toLowerCase().includes(q)));
+    if (!orders.length) { $('olist').innerHTML = '<div class="empty"><b>Още няма поръчки</b>Щом някой поръча от сайта, поръчката ще се появи тук и ще дойде имейл.</div>'; return; }
+    if (!list.length) { $('olist').innerHTML = '<div class="empty"><b>Няма намерени поръчки</b>Смени търсенето или филтъра.</div>'; return; }
+    $('olist').innerHTML = list.map(o => {
+      const w = wishesOf(o), tel = String(o['Телефон'] || '').replace(/[^\d+]/g, '');
+      return `<article class="oc s${sIdx(o.status)}" data-id="${o.id}">
+        <div class="oc-h"><span class="no">№ ${o.id}</span><span class="date">${when(o.date)}</span>
+          <select data-f="status" aria-label="Статус">${STATUSES.map(s => `<option${s === o.status ? ' selected' : ''}>${s}</option>`).join('')}</select></div>
+        <div class="oc-b">
+          <div class="oc-name">${esc(o['Име'])} ${esc(o['Фамилия'])}</div>
+          <div class="oc-grid">
+            <div><span>Телефон</span><a href="tel:${esc(tel)}">${esc(o['Телефон'])}</a></div>
+            <div><span>Имейл</span>${o['Имейл'] ? `<a href="mailto:${esc(o['Имейл'])}">${esc(o['Имейл'])}</a>` : '—'}</div>
+            <div><span>Доставка</span>${esc(o['Куриер'])} · ${esc(o['Град'])}<br>${esc(o['Офис'])}</div>
+            <div><span>Книги · Сума</span><b>${esc(o['Брой'])} бр.</b> · ${eur(o.sum)} <small>+ доставка</small></div>
+            <div><span>Автограф</span>${esc(o['Автограф'] || '—')}</div>
+          </div>
+          ${w ? `<div class="wish">${w}</div>` : ''}
+          ${o['Бележка'] ? `<div class="wish"><b>Бележка от клиента:</b> ${esc(o['Бележка'])}</div>` : ''}
+          <div class="oc-f">
+            <label><span>Товарителница</span><input data-f="tracking" value="${esc(o.tracking)}" placeholder="№ на пратката"></label>
+            <label><span>Бележки (за нас)</span><textarea data-f="note" rows="1" placeholder="Само вие ги виждате">${esc(o.note)}</textarea></label>
+          </div>
+          <div class="oc-foot"><span class="state">${o.changedBy ? 'Последна промяна: ' + esc(o.changedBy) + ', ' + when(o.changed) : ''}</span><button type="button" class="del">Изтрий</button></div>
+        </div></article>`;
     }).join('');
   }
-  $('side').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; current = b.dataset.s; renderSide(); renderFields(); scrollTo(0, 0); });
+  async function saveOrder(card, patch) {
+    const st = card.querySelector('.state'); st.className = 'state'; st.innerHTML = '<span class="spin"></span> Запазва се…';
+    const d = await post({ type: 'orderUpdate', id: +card.dataset.id, ...patch }).catch(() => ({ ok: false, error: 'Няма връзка.' }));
+    if (!d.ok) { st.className = 'state st-bad'; st.textContent = '✕ ' + (d.error || 'Не се запази'); return; }
+    const i = orders.findIndex(o => o.id === d.order.id); if (i >= 0) orders[i] = d.order;
+    st.className = 'state st-ok'; st.textContent = '✓ Запазено';
+    renderKpis(); renderSide();
+  }
+  $('olist').addEventListener('change', e => {
+    const card = e.target.closest('.oc'), f = e.target.dataset.f; if (!card || !f) return;
+    if (f === 'status') card.className = 'oc s' + sIdx(e.target.value);
+    saveOrder(card, { [f]: e.target.value });
+  });
+  $('olist').addEventListener('click', async e => {
+    const del = e.target.closest('.del'); if (!del) return;
+    if (!del.classList.contains('sure')) { del.classList.add('sure'); del.textContent = 'Сигурен ли си? Натисни пак'; setTimeout(() => { del.classList.remove('sure'); del.textContent = 'Изтрий'; }, 4000); return; }
+    const card = del.closest('.oc'), d = await post({ type: 'orderDelete', id: +card.dataset.id });
+    if (d.ok) { orders = orders.filter(o => o.id !== +card.dataset.id); renderOrders(); renderSide(); }
+  });
+  $('chips').addEventListener('click', e => { const c = e.target.closest('.chip'); if (c) { oFilter = c.dataset.f; renderOrders(); } });
+  $('oq').addEventListener('input', renderOrders);
+  $('oRefresh').addEventListener('click', () => loadOrders());
+  $('oCsv').addEventListener('click', () => {
+    const cols = ['№', 'Дата', 'Статус', 'Име', 'Фамилия', 'Телефон', 'Имейл', 'Куриер', 'Град', 'Офис', 'Брой', 'Сума (€)', 'Автограф', 'Пожелания', 'Бележка от клиента', 'Товарителница', 'Бележки (за нас)'];
+    const rows = orders.map(o => [o.id, when(o.date), o.status, o['Име'], o['Фамилия'], o['Телефон'], o['Имейл'], o['Куриер'], o['Град'], o['Офис'], o['Брой'],
+      (+o.sum || 0).toFixed(2).replace('.', ','), o['Автограф'], wishesOf(o).replace(/<\/?b>/g, ''), o['Бележка'], o.tracking, o.note]);
+    const cell = v => '"' + String(v == null ? '' : v).replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&').replace(/"/g, '""') + '"';
+    const csv = '﻿' + [cols, ...rows].map(r => r.map(cell).join(';')).join('\r\n');
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+    a.download = 'porachki-' + new Date().toISOString().slice(0, 10) + '.csv'; document.body.appendChild(a); a.click(); a.remove();
+  });
 
+  // ===== Отзиви =====
+  async function loadReviews(quiet) {
+    const d = await post({ type: 'reviews' }).catch(() => ({ ok: false }));
+    if (!d.ok) { if (!quiet) $('rlist').innerHTML = `<div class="empty"><b>Отзивите не се заредиха</b>${esc(d.error || '')}</div>`; return; }
+    reviews = d.reviews || []; renderSide();
+    if (!quiet || !document.activeElement.closest('.rv')) renderReviews();
+  }
+  function renderReviews() {
+    if (!reviews.length) { $('rlist').innerHTML = '<div class="empty"><b>Още няма нови отзиви</b>Отзивите, написани от сайта, ще чакат тук за одобрение.</div>'; return; }
+    $('rlist').innerHTML = reviews.map(r => `<article class="rv ${r.approved ? 'on' : ''}" data-id="${r.id}">
+      ${r.photo ? `<img src="${esc(r.photo)}" alt="">` : `<div class="ph">${esc((r.name || '?')[0])}</div>`}
+      <div><b style="font-family:Montserrat,sans-serif">${esc(r.name)}</b> <span class="stars">${'★'.repeat(+r.stars || 5)}</span>
+        <div class="meta">${when(r.date)}${r.email ? ' · ' + esc(r.email) : ''}</div>
+        <p>${esc(r.text)}</p>
+        <div class="acts"><button type="button" class="tgl ${r.approved ? 'on' : ''}" data-a="tgl">${r.approved ? '✓ Показва се на сайта' : 'Покажи на сайта'}</button>
+          <span class="oc-foot" style="flex:1"><button type="button" class="del">Изтрий</button></span></div>
+      </div></article>`).join('');
+  }
+  $('rlist').addEventListener('click', async e => {
+    const card = e.target.closest('.rv'); if (!card) return;
+    const id = +card.dataset.id, r = reviews.find(x => x.id === id);
+    if (e.target.closest('[data-a="tgl"]')) {
+      const d = await post({ type: 'reviewUpdate', id, approved: !r.approved });
+      if (d.ok) { r.approved = !r.approved; renderReviews(); renderSide(); }
+    }
+    const del = e.target.closest('.del');
+    if (del) {
+      if (!del.classList.contains('sure')) { del.classList.add('sure'); del.textContent = 'Сигурен ли си? Натисни пак'; return; }
+      const d = await post({ type: 'reviewDelete', id }); if (d.ok) { reviews = reviews.filter(x => x.id !== id); renderReviews(); renderSide(); }
+    }
+  });
+
+  // ===== Парола =====
+  $('passForm').addEventListener('submit', async e => {
+    e.preventDefault(); const m = $('pMsg'); m.style.color = '';
+    if ($('pNew').value !== $('pNew2').value) { m.textContent = 'Новите пароли не съвпадат.'; return; }
+    const d = await post({ type: 'password', old: $('pOld').value, new: $('pNew').value });
+    if (!d.ok) { m.textContent = d.error || 'Неуспешно.'; return; }
+    m.style.color = 'var(--ok)'; m.textContent = '✓ Паролата е сменена. Запиши си я!'; e.target.reset();
+  });
+
+  // ===== Текстове и снимки =====
   function renderFields() {
     $('secTitle').textContent = current;
     const counts = {};
@@ -234,42 +458,36 @@
   });
   $('fileIn').addEventListener('change', async () => {
     const file = $('fileIn').files[0], f = picking; if (!file || !f) return;
-    msg('<span class="spin"></span> Качване на снимката…');
+    $('savebar').hidden = false; msg('<span class="spin"></span> Качване на снимката…');
     try {
-      const data = await shrink(file, API ? 1600 : 900);
-      let url = data;
-      if (API) {
-        const d = await post({ type: 'upload', token: session.token, name: file.name, data: data.split(',')[1] });
-        if (!d.ok) throw new Error(d.error || 'Снимката не беше качена.');
-        url = d.url;
-      }
-      setDraft(f, url); renderFields(); msg(changes() + ' непазени промени – натисни „Запази“');
+      const data = await shrink(file, 1600);
+      const d = await post({ type: 'upload', name: file.name, data: data.split(',')[1] });
+      if (!d.ok) throw new Error(d.error || 'Снимката не беше качена.');
+      setDraft(f, d.url); renderFields(); msg(changes() + ' непазени промени – натисни „Запази“');
     } catch (err) { msg(err.message, 'bad'); }
   });
 
   // ===== Запис =====
   const changes = () => { const keys = new Set([...Object.keys(draft), ...Object.keys(saved)]); let n = 0; keys.forEach(k => { if (JSON.stringify(draft[k]) !== JSON.stringify(saved[k])) n++; }); return n; };
   function msg(html, cls) { const m = $('saveMsg'); m.innerHTML = html; m.className = 'msg' + (cls ? ' ' + cls : ''); }
-  function updateBar() { const n = changes(); $('saveBtn').disabled = !n; msg(n ? n + (n === 1 ? ' непазена промяна' : ' непазени промени') : 'Няма промени'); }
+  function updateBar() { const n = changes(); $('saveBtn').disabled = !n; $('savebar').hidden = current.startsWith('@') && !n; msg(n ? n + (n === 1 ? ' непазена промяна' : ' непазени промени') : 'Няма промени'); }
   $('saveBtn').addEventListener('click', async () => {
     $('saveBtn').disabled = true; msg('<span class="spin"></span> Запазване…');
     try {
-      if (API) {
-        const diff = {}; new Set([...Object.keys(draft), ...Object.keys(saved)]).forEach(k => { if (JSON.stringify(draft[k]) !== JSON.stringify(saved[k])) diff[k] = draft[k] || null; });
-        const d = await post({ type: 'save', token: session.token, changes: diff });
-        if (!d.ok) throw new Error(d.error === 'auth' ? 'Сесията изтече – влез отново.' : (d.error || 'Неуспешен запис.'));
-      } else if (!CMS.write(CMS.DEMO, draft) && JSON.stringify(CMS.read(CMS.DEMO)) !== JSON.stringify(draft)) throw new Error('Браузърът не позволи запис (твърде големи снимки?).');
+      const diff = {}; new Set([...Object.keys(draft), ...Object.keys(saved)]).forEach(k => { if (JSON.stringify(draft[k]) !== JSON.stringify(saved[k])) diff[k] = draft[k] || null; });
+      const d = await post({ type: 'save', changes: diff });
+      if (!d.ok) throw new Error(d.error || 'Неуспешен запис.');
       saved = JSON.parse(JSON.stringify(draft)); renderSide();
-      msg('✓ Запазено! Отвори сайта, за да видиш промените.', 'ok');
+      msg('✓ Запазено! Промените се виждат на сайта до минута.', 'ok');
     } catch (err) { msg(err.message, 'bad'); $('saveBtn').disabled = false; }
   });
   addEventListener('beforeunload', e => { if (session && changes()) { e.preventDefault(); e.returnValue = ''; } });
 
   // ===== Старт =====
   loadSite().then(async () => {
-    try { session = JSON.parse(sessionStorage.getItem('cms-session') || 'null'); } catch { }
-    if (session && (API ? session.token !== 'demo' : session.token === 'demo')) await openApp(); else session = null;
-  }).catch(() => { $('lErr').textContent = 'Админ панелът трябва да е в същата папка като index.html и да се отваря през сайта.'; });
+    session = store.get();
+    if (session && session.token && session.token !== 'demo') await openApp(); else session = null;
+  }).catch(() => { $('lErr').textContent = 'Админ панелът трябва да се отваря през сайта.'; });
 </script>
 </body>
 </html>

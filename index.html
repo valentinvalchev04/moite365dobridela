@@ -1433,9 +1433,9 @@
   // Поръчките се изпращат автоматично през безплатната услуга FormSubmit.co.
   // При първата поръчка FormSubmit праща писмо за потвърждение на ORDER_EMAIL – трябва да се натисне „Activate“.
   const FORM_ENDPOINT = "https://formsubmit.co/ajax/" + ORDER_EMAIL;
-  // Google Таблица (виж „google-таблица-скрипт.gs“): пази поръчките, брои продадените книги на живо
-  // и пази отзивите за одобрение. Празно = броячът стои на BOOKS_BASE и отзивите отиват само по имейл.
-  const SHEET_API = "";
+  // База данни на сайта (Vercel, файл api/data.js): пази поръчките, брои продадените книги на живо,
+  // пази отзивите за одобрение и промените от админ панела (admin.html).
+  const SHEET_API = "/api/data";
   // Книги, продадени преди сайта (броячът започва от тук)
   const BOOKS_BASE = 219;
   // Дигитални допълнения: пакетът „Старт на доброто“ (отметка преди „Изпрати“)
@@ -1569,7 +1569,7 @@
     const email = document.getElementById('arEmail').value.trim();
     const toSheet = sheetPost({ type: 'review', name, stars: arRating, text, email, photo: arPhoto });
     const toMail = fetch(FORM_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ _subject: 'Нов отзив за одобрение – ' + name, 'Тип': 'Отзив', 'Име': name, 'Оценка': arRating + ' от 5', 'Отзив': text, 'Имейл': email || '—', 'Снимка': arPhoto ? 'Да (в Google Таблицата)' : 'Не', _template: 'table', _cc: COPY_EMAIL }) })
+      body: JSON.stringify({ _subject: 'Нов отзив за одобрение – ' + name, 'Тип': 'Отзив', 'Име': name, 'Оценка': arRating + ' от 5', 'Отзив': text, 'Имейл': email || '—', 'Снимка': arPhoto ? 'Да (в админ панела)' : 'Не', _template: 'table', _cc: COPY_EMAIL }) })
       .then(r => r.json()).then(j => String(j.success) === 'true', () => false);
     const [okSheet, okMail] = await Promise.all([toSheet, toMail]);
     btn.disabled = false; btn.textContent = 'Публикувай отзива';
