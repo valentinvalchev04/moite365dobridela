@@ -12,6 +12,7 @@ const R_TOKEN = env.KV_REST_API_TOKEN || env.UPSTASH_REDIS_REST_TOKEN || pick(/_
 // Нова парола, сменена от панела, се пази в базата и е с предимство.
 const USERS = {
   arman: { name: 'Арман', hash: 'd7af2a4dd35077a1b86a432a2b6cca83216b27956d8426143822e1a5e4a12746' },
+  valentin: { name: 'Валентин', hash: 'a8d6c3d0cc94062ed3534c649380a5796336fe04ad1945122a25ce3ffdd92058' },
   admin: { name: 'Администратор', hash: '6a299e316bf487e54d7c002d8b359a1cdf7153e27b40ff34442628f328b91871' }
 };
 const STATUSES = ['Нова', 'Потвърдена', 'Изпратена', 'Платена', 'Отказана'];
