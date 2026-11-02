@@ -134,11 +134,11 @@ async function post(req, res) {
       return send(res, 200, { ok: true });
     }
     case 'upload': {
-      if (!BLOB) return send(res, 200, { ok: false, error: 'Хранилището за снимки не е свързано (Vercel → Storage → Blob).' });
+      if (!BLOB && !env.BLOB_STORE_ID) return send(res, 200, { ok: false, error: 'Хранилището за снимки не е свързано (Vercel → Storage → Blob).' });
       const name = str(d.name, 60).replace(/\.[^.]+$/, '').replace(/[^a-z0-9-]+/gi, '-').toLowerCase() || 'snimka';
       const { put } = await import('@vercel/blob');
       const blob = await put('site/' + name + '.jpg', Buffer.from(String(d.data || ''), 'base64'),
-        { access: 'public', contentType: 'image/jpeg', addRandomSuffix: true, token: BLOB });
+        { access: 'public', contentType: 'image/jpeg', addRandomSuffix: true, ...(BLOB ? { token: BLOB } : {}) });
       return send(res, 200, { ok: true, url: blob.url });
     }
     case 'orders': {
@@ -188,7 +188,7 @@ export default async function handler(req, res) {
     if (req.query && req.query.action === 'ping') {
       let db = 'няма';
       if (R_URL && R_TOKEN) { try { db = (await redis('PING')) === 'PONG' ? 'ok' : 'грешка'; } catch (e) { db = 'грешка: ' + e.message; } }
-      return send(res, 200, { db, blob: BLOB ? 'ok' : 'няма', env: Object.keys(env).filter(k => /KV|REDIS|UPSTASH|BLOB/.test(k)) });
+      return send(res, 200, { db, blob: BLOB || env.BLOB_STORE_ID ? 'ok' : 'няма', env: Object.keys(env).filter(k => /KV|REDIS|UPSTASH|BLOB|OIDC|DATABASE/.test(k)) });
     }
     if (!R_URL || !R_TOKEN) return send(res, 500, { ok: false, error: 'Базата данни не е свързана (Vercel → Storage → Upstash).' });
     if (req.method === 'GET') return await get(req, res);
