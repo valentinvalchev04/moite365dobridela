@@ -1,13 +1,12 @@
 // „Моите 365 добри дела“ – сървърна част на Vercel.
-// Пази поръчките, отзивите и промените от админ панела в базата Upstash Redis (Vercel → Storage),
-// а качените снимки – във Vercel Blob. Сайтът и admin.html говорят с адреса /api/data.
+// Пази поръчките, отзивите, промените от админ панела и качените снимки в базата Upstash Redis
+// (Vercel → Storage). Сайтът и admin.html говорят с адреса /api/data.
 import { createHash, createHmac, randomBytes, timingSafeEqual } from 'node:crypto';
 
 const env = process.env;
 const pick = re => { const k = Object.keys(env).find(k => re.test(k) && env[k]); return k ? env[k] : ''; };
 const R_URL = env.KV_REST_API_URL || env.UPSTASH_REDIS_REST_URL || pick(/_REST_API_URL$|REDIS_REST_URL$/);
 const R_TOKEN = env.KV_REST_API_TOKEN || env.UPSTASH_REDIS_REST_TOKEN || pick(/_REST_API_TOKEN$|REDIS_REST_TOKEN$/);
-const BLOB = env.BLOB_READ_WRITE_TOKEN || pick(/BLOB_READ_WRITE_TOKEN$/);
 
 // Потребители на админ панела (паролите – само като отпечатък SHA-256 от „365dd:потребител:парола“).
 // Нова парола, сменена от панела, се пази в базата и е с предимство.
@@ -69,7 +68,15 @@ async function body(req) {
 
 // ---------- четене (сайтът) ----------
 async function get(req, res) {
-  const action = req.query && req.query.action;
+  const action = req.query && req.query.action, img = req.query && req.query.img;
+  if (img) {
+    const b64 = /^[a-z0-9]+$/.test(img) ? await redis('GET', 'img:' + img) : null;
+    if (!b64) { res.statusCode = 404; return res.end(); }
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'image/jpeg');
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    return res.end(Buffer.from(b64, 'base64'));
+  }
   if (action === 'content') {
     const content = {};
     (await hashAll('content')).forEach(([k, c]) => { content[k] = { v: c.v, o: c.o }; });
@@ -134,12 +141,12 @@ async function post(req, res) {
       return send(res, 200, { ok: true });
     }
     case 'upload': {
-      if (!BLOB && !env.BLOB_STORE_ID) return send(res, 200, { ok: false, error: 'Хранилището за снимки не е свързано (Vercel → Storage → Blob).' });
-      const name = str(d.name, 60).replace(/\.[^.]+$/, '').replace(/[^a-z0-9-]+/gi, '-').toLowerCase() || 'snimka';
-      const { put } = await import('@vercel/blob');
-      const blob = await put('site/' + name + '.jpg', Buffer.from(String(d.data || ''), 'base64'),
-        { access: 'public', contentType: 'image/jpeg', addRandomSuffix: true, ...(BLOB ? { token: BLOB } : {}) });
-      return send(res, 200, { ok: true, url: blob.url });
+      // снимката се пази в базата и се сервира от /api/data?img=… (кешира се от Vercel за година)
+      const data = String(d.data || '').replace(/[^A-Za-z0-9+/=]/g, '');
+      if (data.length < 100 || data.length > 4e6) return send(res, 200, { ok: false, error: 'Снимката е твърде голяма или повредена.' });
+      const id = Date.now().toString(36) + randomBytes(4).toString('hex');
+      await redis('SET', 'img:' + id, data);
+      return send(res, 200, { ok: true, url: '/api/data?img=' + id });
     }
     case 'orders': {
       const orders = (await hashAll('orders')).map(([, o]) => o).sort((a, b) => b.id - a.id);
@@ -188,7 +195,7 @@ export default async function handler(req, res) {
     if (req.query && req.query.action === 'ping') {
       let db = 'няма';
       if (R_URL && R_TOKEN) { try { db = (await redis('PING')) === 'PONG' ? 'ok' : 'грешка'; } catch (e) { db = 'грешка: ' + e.message; } }
-      return send(res, 200, { db, blob: BLOB || env.BLOB_STORE_ID ? 'ok' : 'няма', env: Object.keys(env).filter(k => /KV|REDIS|UPSTASH|BLOB|OIDC|DATABASE/.test(k)) });
+      return send(res, 200, { db });
     }
     if (!R_URL || !R_TOKEN) return send(res, 500, { ok: false, error: 'Базата данни не е свързана (Vercel → Storage → Upstash).' });
     if (req.method === 'GET') return await get(req, res);

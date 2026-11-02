@@ -460,7 +460,7 @@
     const file = $('fileIn').files[0], f = picking; if (!file || !f) return;
     $('savebar').hidden = false; msg('<span class="spin"></span> Качване на снимката…');
     try {
-      const data = await shrink(file, 1600);
+      const data = await shrink(file, 1400);
       const d = await post({ type: 'upload', name: file.name, data: data.split(',')[1] });
       if (!d.ok) throw new Error(d.error || 'Снимката не беше качена.');
       setDraft(f, d.url); renderFields(); msg(changes() + ' непазени промени – натисни „Запази“');

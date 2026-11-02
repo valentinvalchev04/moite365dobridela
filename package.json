@@ -1,8 +1,5 @@
 {
   "name": "moite365dobridela",
   "private": true,
-  "type": "module",
-  "dependencies": {
-    "@vercel/blob": "latest"
-  }
+  "type": "module"
 }
